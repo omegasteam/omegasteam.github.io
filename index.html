@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <title>OmegaSTEAM</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body {
       margin: 0;
@@ -12,19 +13,32 @@
       color: #ffffff;
       text-align: center;
     }
+
     header {
       padding: 80px 20px;
     }
+
+    .logo {
+      width: 120px;          /* change size if needed */
+      margin-bottom: 20px;
+      /* optional glow */
+      filter: drop-shadow(0 0 12px #38bdf8);
+    }
+
     h1 {
       font-size: 3rem;
       color: #38bdf8;
+      margin: 10px 0;
     }
+
     p {
       font-size: 1.2rem;
       max-width: 600px;
       margin: auto;
       line-height: 1.6;
+      opacity: 0.9;
     }
+
     .btn {
       display: inline-block;
       margin-top: 30px;
@@ -34,16 +48,31 @@
       text-decoration: none;
       border-radius: 6px;
       font-weight: bold;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(56,189,248,0.4);
     }
   </style>
 </head>
+
 <body>
   <header>
+    <!-- LOGO -->
+    <img src="logo.png" alt="OmegaSTEAM Logo" class="logo">
+
+    <!-- TITLE -->
     <h1>OmegaSTEAM</h1>
+
+    <!-- TAGLINE -->
     <p>
       Empowering students through Science, Technology, Engineering,
       Arts and Mathematics. Learning by doing.
     </p>
+
+    <!-- BUTTON -->
     <a class="btn" href="#">Coming Soon</a>
   </header>
 </body>
