@@ -143,6 +143,45 @@ footer {
   display: inline-block;
   margin: 6px;
 }
+/* CURRICULUM PAGE */
+.curriculum-section {
+  margin-bottom: 40px;
+}
+
+.curriculum-section h2 {
+  color: #38bdf8;
+  margin-bottom: 5px;
+}
+
+.grade-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.grade-links a {
+  padding: 10px 16px;
+  border: 1px solid #38bdf8;
+  border-radius: 20px;
+  text-decoration: none;
+  color: #38bdf8;
+  font-weight: bold;
+}
+
+/* GRADE PAGE */
+.back-btn {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #38bdf8;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.coming-soon {
+  color: #cbd5f5;
+  margin-top: 20px;
+}
 
 /* ==================================================
    MOBILE VIEW (<=768px)
