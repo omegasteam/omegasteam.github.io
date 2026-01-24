@@ -1,3 +1,6 @@
+/* --------------------
+   BASE
+-------------------- */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -5,7 +8,9 @@ body {
   color: #ffffff;
 }
 
-/* NAVBAR */
+/* --------------------
+   NAVBAR (DESKTOP)
+-------------------- */
 .nav {
   display: flex;
   justify-content: space-between;
@@ -29,13 +34,29 @@ body {
   font-weight: bold;
 }
 
+.nav nav {
+  display: flex;
+}
+
 .nav nav a {
   color: #ffffff;
   margin-left: 20px;
   text-decoration: none;
 }
 
-/* HERO */
+/* HIDE HAMBURGER BY DEFAULT (DESKTOP) */
+.menu-toggle {
+  display: none;
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* --------------------
+   HERO
+-------------------- */
 .hero {
   text-align: center;
   padding: 100px 20px;
@@ -52,6 +73,7 @@ body {
   font-size: 1.1rem;
 }
 
+/* BUTTON */
 .btn {
   display: inline-block;
   margin-top: 25px;
@@ -63,13 +85,17 @@ body {
   font-weight: bold;
 }
 
-/* PAGES */
+/* --------------------
+   PAGES
+-------------------- */
 .page {
   padding: 80px 20px;
   text-align: center;
 }
 
-/* FOOTER */
+/* --------------------
+   FOOTER
+-------------------- */
 footer {
   text-align: center;
   padding: 20px;
@@ -77,17 +103,9 @@ footer {
   font-size: 0.9rem;
 }
 
-/* HAMBURGER */
-.menu-toggle {
-  display: none;
-  font-size: 1.8rem;
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
-}
-
-/* MOBILE */
+/* ==================================================
+   MOBILE VIEW (<=768px)
+================================================== */
 @media (max-width: 768px) {
 
   .nav {
@@ -96,11 +114,13 @@ footer {
     padding: 15px 20px;
   }
 
+  /* SHOW HAMBURGER ON MOBILE */
   .menu-toggle {
     display: block;
     align-self: flex-end;
   }
 
+  /* HIDE MENU INITIALLY */
   .nav nav {
     display: none;
     width: 100%;
@@ -109,17 +129,22 @@ footer {
     margin-top: 10px;
   }
 
-  .nav nav a {
-    padding: 12px;
-    text-align: center;
-    margin: 0;
-  }
-
+  /* SHOW MENU WHEN TOGGLED */
   .nav nav.show {
     display: flex;
   }
 
+  .nav nav a {
+    margin: 0;
+    padding: 12px;
+    text-align: center;
+  }
+
   .hero h1 {
     font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
   }
 }
