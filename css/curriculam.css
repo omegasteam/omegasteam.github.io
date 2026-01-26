@@ -1,99 +1,83 @@
-/* ================= HERO ================= */
-.curriculum-hero {
-  padding: 70px 20px;
+/* ===== RESET ===== */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: white;
+}
+
+/* ===== NAV ===== */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background: #020617;
+}
+
+.nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+}
+
+/* ===== HERO ===== */
+.hero {
   text-align: center;
+  padding: 80px 20px;
 }
 
-.curriculum-hero h1 {
-  font-size: 2.4rem;
-  color: #38bdf8;
-  margin-bottom: 10px;
-}
+.hero h1 { color: #38bdf8; }
 
-.curriculum-hero p {
-  color: #cbd5f5;
-  max-width: 700px;
-  margin: auto;
-  line-height: 1.6;
-}
-
-/* ================= GRID ================= */
+/* ===== GRID ===== */
 .curriculum-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 25px;
-  padding: 40px 20px;
-  max-width: 1200px;
+  max-width: 1100px;
   margin: auto;
+  padding: 40px 20px;
 }
 
-/* ================= CARDS ================= */
-.curriculum-card {
+/* ===== CARD ===== */
+.card {
   background: #020617;
-  border-radius: 18px;
-  padding: 30px;
+  padding: 25px;
+  border-radius: 16px;
   text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  position: relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
 
-.curriculum-card h2 {
-  color: #38bdf8;
-  margin-bottom: 10px;
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 45px rgba(56,189,248,0.3);
 }
 
-.curriculum-card span {
-  display: block;
-  margin-top: 6px;
-  color: #94a3b8;
-  font-size: 0.95rem;
-}
+.card h2 { color: #38bdf8; }
 
-.curriculum-card a {
+.card a {
   display: inline-block;
-  margin-top: 15px;
-  padding: 10px 20px;
+  margin-top: 12px;
+  padding: 8px 14px;
   background: #38bdf8;
   color: #020617;
   text-decoration: none;
+  border-radius: 6px;
   font-weight: bold;
-  border-radius: 8px;
-  transition: background 0.3s ease, transform 0.3s ease;
+  transition: 0.2s;
 }
 
-.curriculum-card a:hover {
+.card a:hover {
   background: #22c55e;
   transform: translateY(-2px);
 }
 
-/* ================= CARD HOVER ================= */
-@media (hover: hover) {
-  .curriculum-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 18px 45px rgba(56,189,248,0.25);
-  }
-
-  .curriculum-card:hover h2 {
-    text-shadow: 0 0 10px rgba(56,189,248,0.6);
-  }
-
-  .curriculum-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 18px;
-    border: 1px solid transparent;
-    transition: border-color 0.3s ease;
-  }
-
-  .curriculum-card:hover::before {
-    border-color: rgba(56,189,248,0.4);
-  }
-}
-
-/* ================= RESPONSIVE ================= */
-@media (max-width: 768px) {
-  .curriculum-hero h1 { font-size: 2rem; }
-  .curriculum-card a { padding: 8px 16px; font-size: 0.95rem; }
+/* ===== FOOTER ===== */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #020617;
 }
