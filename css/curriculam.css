@@ -81,6 +81,10 @@
       0 0 0 1px rgba(56,189,248,0.25);
   }
 
+   .curriculam-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(56,189,248,0.2);
+
   .curriculum-card:hover h2 {
     text-shadow: 0 0 12px rgba(56,189,248,0.6);
   }
