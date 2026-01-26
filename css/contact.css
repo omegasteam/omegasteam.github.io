@@ -1,0 +1,35 @@
+.contact-page {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.contact-intro {
+  text-align: center;
+  color: #cbd5f5;
+  margin-bottom: 30px;
+}
+
+.contact-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.contact-card {
+  background: #020617;
+  border: 1px solid #1e293b;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}
+
+.contact-card h3 {
+  margin-bottom: 10px;
+  color: #38bdf8;
+}
+
+.contact-card a {
+  color: #38bdf8;
+  font-weight: bold;
+}
