@@ -1,54 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact | OmegaSTEAM</title>
-<link rel="stylesheet" href="/css/style.css">
-<link rel="stylesheet" href="/css/contact.css">
+  <meta charset="UTF-8">
+  <title>Contact | OmegaSTEAM</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<section class="hero">
-  <h1>Contact Us</h1>
-</section>
+  <!-- Main Site Style -->
+  <link rel="stylesheet" href="/css/style.css">
 
-<section class="contact-grid">
-  <div class="contact-card"><h3>Email</h3></div>
-  <div class="contact-card"><h3>Phone</h3></div>
-  <div class="contact-card"><h3>Location</h3></div>
-</section>
+  <!-- Contact Page Style -->
+  <link rel="stylesheet" href="/css/contact.css">
 </head>
 
 <body>
 
 <header class="nav">
-  <div class="logo">OmegaSTEAM</div>
+  <div class="logo">
+    <img src="/images/logo.png" alt="OmegaSTEAM Logo">
+    <span class="brand">OmegaSTEAM</span>
+  </div>
+
+  <button class="menu-toggle" id="menuToggle">☰</button>
+
+  <nav id="navMenu">
+    <a href="/">Home</a>
+    <a href="/projects/">Projects</a>
+    <a href="/curriculum/">Curriculum</a>
+    <a href="/store/">Store</a>
+    <a href="/contact/" class="active">Contact</a>
+  </nav>
 </header>
 
-<section class="contact-section">
+<!-- CONTACT CONTENT -->
+<main class="page contact-page">
+
   <h1>Contact Us</h1>
-  <p>We'd love to hear from you.</p>
+  <p class="subtitle">We’d love to hear from you 🚀</p>
 
   <div class="contact-grid">
 
+    <!-- EMAIL -->
     <div class="contact-card">
-      <h3>Email</h3>
-      <p>info@omegasteam.com</p>
+      <div class="icon">📧</div>
+      <h2>Email</h2>
+      <p>
+        <a href="mailto:contact@omegasteam.com">
+          contact@omegasteam.com
+        </a>
+      </p>
     </div>
 
+    <!-- WHATSAPP -->
     <div class="contact-card">
-      <h3>Phone</h3>
-      <p>+91 XXXXX XXXXX</p>
+      <div class="icon">📱</div>
+      <h2>WhatsApp</h2>
+      <p>
+        <a href="https://wa.me/918825703146" target="_blank">
+          Chat With Us
+        </a>
+      </p>
     </div>
 
+    <!-- LOCATION -->
     <div class="contact-card">
-      <h3>Location</h3>
-      <p>India</p>
+      <div class="icon">📍</div>
+      <h2>Location</h2>
+      <p>Tamil Nadu, India</p>
+    </div>
+
+    <!-- YOUTUBE -->
+    <div class="contact-card">
+      <div class="icon">▶️</div>
+      <h2>YouTube</h2>
+      <p>
+        <a href="https://youtube.com/@yourchannel" target="_blank">
+          Subscribe to our Channel 
+        </a>
+      </p>
     </div>
 
   </div>
-</section>
+
+</main>
 
 <footer>© 2026 OmegaSTEAM</footer>
 
+<script src="/js/main.js"></script>
 </body>
 </html>
