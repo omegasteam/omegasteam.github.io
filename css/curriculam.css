@@ -1,22 +1,49 @@
-.curriculum-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
-  gap: 25px;
-  padding: 40px 20px;
-  max-width: 1100px;
-  margin: auto;
+.curriculum-page h1 {
+  text-align: center;
+  margin: 60px 0 30px;
+  color: #38bdf8;
 }
 
-.card {
-  background: #020617;
-  padding: 25px;
-  border-radius: 16px;
+.curriculum-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
+}
+
+.curriculum-card {
+  background: #0f172a;
+  border-radius: 18px;
+  padding: 30px;
   text-align: center;
-  transition: 0.3s;
+  transition: 0.3s ease;
   box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
 
-.card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 18px 45px rgba(56,189,248,0.3);
+.curriculum-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 50px rgba(56,189,248,0.3);
+}
+
+.curriculum-card h2 {
+  color: #38bdf8;
+  margin-bottom: 10px;
+}
+
+.curriculum-card p {
+  color: #94a3b8;
+  margin-bottom: 20px;
+}
+
+.curriculum-card a {
+  display: block;
+  margin: 8px 0;
+  color: #e2e8f0;
+  text-decoration: none;
+}
+
+.curriculum-card a:hover {
+  color: #22c55e;
 }
