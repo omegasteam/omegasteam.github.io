@@ -92,7 +92,7 @@ body::before {
 }
 
 .chapter-list a:hover {
-  background: #38bdf8;
+  background: #2dad5e;
   color: #020617;
   transform: scale(1.05);
 }
