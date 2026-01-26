@@ -1,60 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Curriculum | OmegaSTEAM</title>
-<link rel="stylesheet" href="/css/style.css">
-<link rel="stylesheet" href="/css/curriculum.css">
+  <meta charset="UTF-8" />
+  <title>Curriculum | OmegaSTEAM</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- Curriculum Page CSS -->
+  <link rel="stylesheet" href="/css/curriculum.css">
 </head>
 
 <body>
 
+<!-- ===== NAVBAR ===== -->
 <header class="nav">
-  <div class="logo">OmegaSTEAM</div>
-  <nav>
+  <div class="logo">
+    <img src="/images/logo.png" alt="OmegaSTEAM Logo">
+    <span class="brand">OmegaSTEAM</span>
+  </div>
+
+  <button class="menu-toggle" id="menuToggle">☰</button>
+
+  <nav id="navMenu">
     <a href="/">Home</a>
     <a href="/projects/">Projects</a>
-    <a href="/curriculum/">Curriculum</a>
+    <a href="/curriculum/" class="active">Curriculum</a>
     <a href="/store/">Store</a>
     <a href="/contact/">Contact</a>
   </nav>
 </header>
 
-<section class="hero">
-  <h1>STEAM Curriculum Pathway</h1>
-  <p>Structured hands-on learning designed for future innovators.</p>
-</section>
+<!-- ===== PAGE CONTENT ===== -->
+<main class="page curriculum-page">
 
-<section class="curriculum-grid">
+  <h1>STEAM Learning Pathways</h1>
 
-  <div class="card">
-    <h2>STEAM Junior</h2>
-    <p>Explorers • Grades 3–5</p>
-    <a href="#">Grade 3</a>
-    <a href="#">Grade 4</a>
-    <a href="#">Grade 5</a>
+  <div class="curriculum-grid">
+
+    <!-- STEAM JUNIOR -->
+    <div class="curriculum-card">
+      <h2>STEAM Junior</h2>
+      <p>Explorers</p>
+
+      <a href="/curriculum/steam-junior/grade-3/">Grade 3</a>
+      <a href="/curriculum/steam-junior/grade-4/">Grade 4</a>
+      <a href="/curriculum/steam-junior/grade-5/">Grade 5</a>
+    </div>
+
+    <!-- STEAM SENIOR -->
+    <div class="curriculum-card">
+      <h2>STEAM Senior</h2>
+      <p>Innovators</p>
+
+      <a href="/curriculum/steam-senior/grade-6/">Grade 6</a>
+      <a href="/curriculum/steam-senior/grade-7/">Grade 7</a>
+      <a href="/curriculum/steam-senior/grade-8/">Grade 8</a>
+    </div>
+
+    <!-- STEAM ADVANCED -->
+    <div class="curriculum-card">
+      <h2>STEAM Advanced</h2>
+      <p>Pioneers</p>
+
+      <a href="/curriculum/advanced/grade-9-10/">Grades 9–10</a>
+      <a href="/curriculum/advanced/grade-11-12/">Grades 11–12</a>
+      <a href="/projects/">Capstone Projects</a>
+    </div>
+
   </div>
 
-  <div class="card">
-    <h2>STEAM Senior</h2>
-    <p>Innovators • Grades 6–8</p>
-    <a href="#">Grade 6</a>
-    <a href="#">Grade 7</a>
-    <a href="#">Grade 8</a>
-  </div>
+</main>
 
-  <div class="card">
-    <h2>STEAM Advanced</h2>
-    <p>Pioneers • Grades 9–12</p>
-    <a href="#">Grades 9–10</a>
-    <a href="#">Grades 11–12</a>
-    <a href="#">Projects</a>
-  </div>
+<!-- ===== FOOTER ===== -->
+<footer>
+  © 2026 OmegaSTEAM • Learning by Doing 🚀
+</footer>
 
-</section>
-
-<footer>© 2026 OmegaSTEAM</footer>
+<!-- JS -->
+<script src="/js/main.js"></script>
 
 </body>
 </html>
