@@ -1,19 +1,11 @@
-/* ===============================
-   GRADE PAGE — BIG & FILLED
-=============================== */
+/* PAGE BACKGROUND */
 body {
   background: linear-gradient(135deg, #0b1120, #0f172a);
+  color: #e2e8f0;
+  font-family: Arial, sans-serif;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(circle at 20% 20%, rgba(56,189,248,0.08), transparent 40%),
-              radial-gradient(circle at 80% 70%, rgba(34,197,94,0.06), transparent 40%);
-  pointer-events: none;
-}
-
+/* PAGE WRAPPER */
 .grade-page {
   max-width: 1200px;
   margin: auto;
@@ -30,41 +22,34 @@ body::before {
   border-radius: 10px;
   text-decoration: none;
   font-weight: bold;
-  font-size: 1.1rem;
-  transition: transform 0.2s ease;
 }
 
-.back-btn:hover {
-  transform: translateX(-5px);
-}
-
-/* TITLES */
+/* MAIN TITLE */
 .grade-page h1 {
   text-align: center;
   font-size: 3rem;
   color: #38bdf8;
-  margin-bottom: 5px;
 }
 
-.grade-page h2.subtitle {
+/* TAGLINE */
+.subtitle {
   text-align: center;
   font-size: 1.5rem;
-  color: #ffffff;
+  color: #94a3b8;   /* FIXES BLACK TEXT */
   margin-bottom: 25px;
 }
 
 /* SUBJECT CARDS */
 .subject-block {
   background: #0f172a;
-  color: #d8e8de;
   padding: 25px;
   border-radius: 16px;
   margin-bottom: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
+/* SUBJECT TITLE (Tynker Animation) */
 .subject-block h3 {
-  color: #22c55e;
+  color: #22c55e;     /* FIXES BLACK TEXT */
   font-size: 2rem;
   margin-bottom: 15px;
 }
@@ -74,33 +59,18 @@ body::before {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 12px;
-  padding: 0;
   list-style: none;
+  padding: 0;
 }
 
 /* CHAPTER BUTTONS */
 .chapter-list a {
   display: block;
-  padding: 14px 12px;
+  padding: 14px;
   background: #1e293b;
   color: #e2e8f0;
   border-radius: 12px;
   text-decoration: none;
-  font-size: 1.1rem;
   font-weight: bold;
   text-align: center;
-  transition: all 0.2s ease;
-}
-
-.chapter-list a:hover {
-  background: #2dad5e;
-  color: #020617;
-  transform: scale(1.05);
-}
-
-/* MOBILE */
-@media (max-width: 768px) {
-  .grade-page h1 { font-size: 2.2rem; }
-  .subject-block h3 { font-size: 1.6rem; }
-  .chapter-list { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
 }
