@@ -1,7 +1,3 @@
-/* ===============================
-   GRADE PAGE — FINAL VERSION
-=============================== */
-
 /* BACKGROUND */
 body {
   background: linear-gradient(135deg, #0b1120, #0f172a);
@@ -43,15 +39,15 @@ body {
 }
 
 /* TAGLINE */
-.subtitle {
+.grade-subtitle {
   text-align: center;
   font-size: 1.5rem;
   color: #94a3b8;
   margin-bottom: 25px;
 }
 
-/* SUBJECT CARD */
-.subject-block {
+/* MODULE CARDS */
+.module {
   background: #0f172a;
   padding: 25px;
   border-radius: 16px;
@@ -60,22 +56,22 @@ body {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.subject-block:hover {
+.module:hover {
   transform: translateY(-6px);
   box-shadow:
     0 20px 50px rgba(56,189,248,0.25),
     0 0 0 1px rgba(56,189,248,0.2);
 }
 
-/* SUBJECT TITLE (Tynker Animation) */
-.subject-block h3 {
+/* MODULE TITLE (Tynker Animation) */
+.module h2 {
   color: #22c55e;
   font-size: 2rem;
   margin-bottom: 15px;
   transition: all 0.3s ease;
 }
 
-.subject-block:hover h3 {
+.module:hover h2 {
   color: #38bdf8;
   text-shadow: 0 0 10px rgba(56,189,248,0.7);
 }
@@ -112,8 +108,8 @@ body {
 /* MOBILE */
 @media (max-width: 768px) {
   .grade-page h1 { font-size: 2.2rem; }
-  .subtitle { font-size: 1.2rem; }
-  .subject-block h3 { font-size: 1.6rem; }
+  .grade-subtitle { font-size: 1.2rem; }
+  .module h2 { font-size: 1.6rem; }
   .chapter-list {
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   }
