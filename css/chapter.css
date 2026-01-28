@@ -1,0 +1,75 @@
+body {
+  background: linear-gradient(135deg, #0b1120, #0f172a);
+  color: #e2e8f0;
+  font-family: Arial, sans-serif;
+}
+
+.chapter-page {
+  max-width: 1000px;
+  margin: auto;
+  padding: 30px 15px 60px;
+}
+
+.back-btn {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 10px 18px;
+  background: #38bdf8;
+  color: #020617;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+h1 {
+  text-align: center;
+  color: #38bdf8;
+  font-size: 2.5rem;
+}
+
+.chapter-subtitle {
+  text-align: center;
+  color: #94a3b8;
+  margin-bottom: 20px;
+}
+
+/* VIDEO */
+.video-section iframe {
+  width: 100%;
+  height: 450px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+
+/* SUBSCRIBE */
+.subscribe-box {
+  text-align: center;
+  margin: 25px 0;
+}
+
+.subscribe-btn {
+  padding: 12px 24px;
+  background: #ff0000;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: transform 0.2s ease;
+}
+
+.subscribe-btn:hover {
+  transform: scale(1.05);
+}
+
+/* STEPS */
+.steps h2 {
+  color: #22c55e;
+  margin-bottom: 15px;
+}
+
+.step-card {
+  background: #1e293b;
+  padding: 14px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
