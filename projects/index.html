@@ -4,10 +4,12 @@
   <meta charset="UTF-8">
   <title>Projects | OmegaSTEAM</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
 
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/projects.css">
+</head>
+
+<body>
 <header class="nav">
   <div class="logo">
     <img src="/images/logo.png">
@@ -18,21 +20,58 @@
 
   <nav id="navMenu">
     <a href="/">Home</a>
-    <a href="/projects/">Projects</a>
-        <a href="/tools/">Tools</a>  
+    <a href="/projects/" class="active">Projects</a>
     <a href="/curriculum/">Curriculum</a>
+    <a href="/tools/">Tools</a>
     <a href="/store/">Store</a>
     <a href="/contact/">Contact</a>
   </nav>
 </header>
 
-<section class="page">
-  <h1>Projects</h1>
-  <p>Hands-on STEM projects built by students.</p>
-</section>
+<main class="projects-page">
 
-<footer>© 2026 OmegaSTEAM</footer>
+  <h1>STEM Projects</h1>
 
-<script src="/js/main.js"></script>
+  <div class="projects-list">
+
+    <a href="/projects/flight-simulator/" class="project-card">
+      <img src="/images/projects/flight-sim.jpg">
+      <div class="project-info">
+        <h2>Flight Simulator</h2>
+      </div>
+    </a>
+
+    <a href="/projects/esp32-drums/" class="project-card">
+      <img src="/images/projects/esp-drums.jpg">
+      <div class="project-info">
+        <h2>ESP32 Digital Drums</h2>
+      </div>
+    </a>
+
+    <a href="/projects/esp32-guitar/" class="project-card">
+      <img src="/images/projects/esp-guitar.jpg">
+      <div class="project-info">
+        <h2>ESP32 Smart Guitar</h2>
+      </div>
+    </a>
+
+    <a href="/projects/smart-watch/" class="project-card">
+      <img src="/images/projects/smart-watch.jpg">
+      <div class="project-info">
+        <h2>Echo Assist Smart Watch</h2>
+      </div>
+    </a>
+
+    <a href="/projects/ai-home/" class="project-card">
+      <img src="/images/projects/ai-home.jpg">
+      <div class="project-info">
+        <h2>AI Home Automation</h2>
+      </div>
+    </a>
+
+  </div>
+
+</main>
+
 </body>
 </html>
