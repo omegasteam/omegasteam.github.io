@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Virtual Drum Kit | OmegaSTEAM</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: white;
+}
+
+/* LAYOUT */
+.tool-layout {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 25px;
+  max-width: 1300px;
+  margin-left: 30px;
+  margin-right: auto;
+  padding: 20px;
+}
+
+/* LEFT */
+.tool-main {
+  text-align: center;
+}
+
+.back-btn {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: #38bdf8;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+h1 {
+  color: #38bdf8;
+}
+
+.tool-image {
+  width: 100%;
+  max-height: 340px;
+  object-fit: cover;
+  border-radius: 14px;
+  margin: 20px 0;
+}
+
+/* DRUM GRID */
+.drum-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.drum-grid button {
+  padding: 22px;
+  font-size: 1.1rem;
+  background: #1e293b;
+  color: #38bdf8;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.drum-grid button:hover {
+  background: #38bdf8;
+  color: #020617;
+  transform: scale(1.05);
+}
+
+.project-link a {
+  display: inline-block;
+  margin-top: 25px;
+  padding: 12px 20px;
+  background: #22c55e;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+/* RIGHT ADS */
+.tool-ads {
+  position: sticky;
+  top: 20px;
+}
+
+.ad-box {
+  background: #0f172a;
+  height: 600px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+  .tool-layout { grid-template-columns: 1fr; margin-left:auto; }
+  .tool-ads { display:none; }
+}
+</style>
+</head>
+
+<body>
+
+<main class="tool-layout">
+
+  <div class="tool-main">
+    <a href="/tools/" class="back-btn">← Back to Tools</a>
+    <h1>Virtual Drum Kit</h1>
+
+    <img src="/images/tools/Drum_kit_parts.png" class="tool-image" alt="Drum Kit">
+
+    <div class="drum-grid">
+      <button onclick="playSound(1)">1<br>Bass</button>
+      <button onclick="playSound(2)">2<br>Floor Tom</button>
+      <button onclick="playSound(3)">3<br>Snare</button>
+      <button onclick="playSound(4)">4<br>Rack Tom</button>
+      <button onclick="playSound(5)">5<br>Hi-Hat</button>
+      <button onclick="playSound(6)">6<br>Crash</button>
+      <button onclick="playSound(7)">7<br>Ride</button>
+      <button onclick="playSound(8)">8<br>Splash</button>
+      <button onclick="playSound(9)">9<br>China</button>
+    </div>
+
+    <div class="project-link">
+      <a href="/projects/esp32-drums/">🔗 Build Real ESP32 Drum Project</a>
+    </div>
+  </div>
+
+  <aside class="tool-ads">
+    <div class="ad-box">Advertisement</div>
+  </aside>
+
+</main>
+
+<script>
+const sounds = {
+  1: new Audio("audio/bass.mp3"),
+  2: new Audio("audio/floor-tom.mp3"),
+  3: new Audio("audio/snare.mp3"),
+  4: new Audio("audio/rack-tom.mp3"),
+  5: new Audio("audio/hihat.mp3"),
+  6: new Audio("audio/crash.mp3"),
+  7: new Audio("audio/ride.mp3"),
+  8: new Audio("audio/splash.mp3"),
+  9: new Audio("audio/china.mp3"),
+};
+
+function playSound(key) {
+  sounds[key].currentTime = 0;
+  sounds[key].play();
+}
+
+document.addEventListener("keydown", (e) => {
+  if (e.key >= 1 && e.key <= 9) playSound(e.key);
+});
+
+document.addEventListener("contextmenu", e => e.preventDefault());
+</script>
+
+</body>
+</html>
