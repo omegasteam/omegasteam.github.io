@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Human Detection Control | OmegaSTEAM</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.9.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#0f172a;
+  color:white;
+}
+
+.tool-layout{
+  display:grid;
+  grid-template-columns:3fr 1fr;
+  max-width:1300px;
+  margin-left:30px;
+  margin-right:auto;
+  gap:25px;
+  padding:20px;
+}
+
+.tool-main{text-align:center}
+
+h1{color:#38bdf8}
+
+.control-panel{
+  margin:15px auto;
+  background:#1e293b;
+  padding:15px;
+  border-radius:12px;
+  display:inline-block;
+}
+
+input{
+  padding:8px;
+  border-radius:6px;
+  border:none;
+  width:180px;
+}
+
+button{
+  padding:8px 14px;
+  border:none;
+  border-radius:6px;
+  background:#22c55e;
+  color:white;
+  cursor:pointer;
+  margin-left:8px;
+}
+
+#count{
+  margin-top:10px;
+  font-size:18px;
+  color:#38bdf8;
+}
+
+video,canvas{
+  border-radius:12px;
+  margin-top:15px;
+  max-width:100%;
+}
+
+.tool-ads{position:sticky;top:20px}
+.ad-box{
+  height:600px;
+  background:#0f172a;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#64748b;
+  border-radius:12px;
+}
+
+@media(max-width:900px){
+  .tool-layout{grid-template-columns:1fr;margin-left:auto}
+  .tool-ads{display:none}
+}
+</style>
+</head>
+
+<body>
+
+<main class="tool-layout">
+
+<div class="tool-main">
+<h1>AI Human Detection Controller</h1>
+
+<div class="control-panel">
+  ESP IP:
+  <input type="text" id="ipInput" placeholder="192.168.1.100">
+  <button onclick="startSystem()">Start</button>
+</div>
+
+<div id="count">Humans: 0</div>
+
+<video id="v" width="640" height="480" autoplay muted playsinline></video>
+<canvas id="c" width="640" height="480"></canvas>
+</div>
+
+<aside class="tool-ads">
+  <div class="ad-box">Advertisement</div>
+</aside>
+
+</main>
+
+<script>
+let z=null, s=null, l=0, t=0;
+const v=document.getElementById("v"),
+c=document.getElementById("c"),
+x=c.getContext("2d"),
+d=document.getElementById("count");
+
+async function cam(){
+  const m=await navigator.mediaDevices.getUserMedia({video:true});
+  v.srcObject=m;
+  return new Promise(r=>v.onloadedmetadata=()=>{v.play();r();});
+}
+
+function send(ip,state){
+  fetch("http://"+ip+"/"+state).catch(()=>{});
+}
+
+async function startSystem(){
+  const ip=document.getElementById("ipInput").value;
+  if(!ip)return alert("Enter ESP IP");
+
+  await cam();
+  const model=await cocoSsd.load();
+
+  (async function loop(){
+    const p=await model.detect(v);
+    x.clearRect(0,0,c.width,c.height);
+    let h=0;
+
+    p.forEach(o=>{
+      if(o.class==="person"){
+        h++;
+        x.strokeStyle="lime";
+        x.strokeRect(...o.bbox);
+      }
+    });
+
+    d.innerText="Humans: "+h;
+
+    let state=h>0?"on":"off",
+    now=Date.now();
+
+    if(state!==z && now-t>2000){
+      send(ip,state);
+      z=state;
+      t=now;
+    }
+
+    requestAnimationFrame(loop);
+  })();
+}
+
+document.addEventListener("contextmenu",e=>e.preventDefault());
+</script>
+
+</body>
+</html>
