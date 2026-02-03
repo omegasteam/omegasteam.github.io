@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Human Detection Tool | OmegaSTEAM</title>
+<title>AI Human Detection Control | OmegaSTEAM</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.9.0"></script>
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
@@ -16,18 +16,16 @@ body{
   color:white;
 }
 
-/* LAYOUT */
 .tool-layout{
   display:grid;
   grid-template-columns:3fr 1fr;
   gap:25px;
   max-width:1300px;
   margin-left:30px;
-  margin-right:auto;
   padding:20px;
 }
 
-.tool-main{ text-align:center; }
+.tool-main{text-align:center;}
 
 .back-btn{
   color:#38bdf8;
@@ -35,85 +33,66 @@ body{
   font-weight:bold;
 }
 
-h1{ color:#38bdf8; }
+h1{color:#38bdf8;}
 
-/* VIDEO */
 .video-box{
   position:relative;
-  display:inline-block;
+  width:100%;
+  max-width:640px;
+  margin:auto;
 }
 
-video, canvas{
-  width:640px;
-  height:480px;
+video,canvas{
+  width:100%;
   border-radius:12px;
 }
 
 canvas{
   position:absolute;
-  left:0;
   top:0;
+  left:0;
 }
 
-/* ESP CONTROL */
-.control-box{
+.control-panel{
   margin-top:15px;
-  background:#1e293b;
-  padding:15px;
-  border-radius:12px;
 }
 
 input{
-  padding:8px;
-  width:200px;
+  padding:10px;
   border-radius:6px;
   border:none;
+  width:200px;
+}
+
+button{
+  padding:10px 15px;
+  border:none;
+  border-radius:6px;
+  background:#38bdf8;
+  color:#0f172a;
+  font-weight:bold;
+  cursor:pointer;
 }
 
 .led{
-  display:inline-block;
   width:15px;
   height:15px;
+  background:#333;
   border-radius:50%;
+  display:inline-block;
   margin-left:10px;
-  background:red;
 }
 
-.led.on{ background:#22c55e; }
+.led.on{background:#22c55e;box-shadow:0 0 10px #22c55e;}
 
-/* PROJECT LINKS */
-.project-links{
-  margin-top:25px;
-  background:#1e293b;
-  padding:15px;
-  border-radius:12px;
-}
-
-.proj-btn{
-  display:block;
-  margin:10px 0;
-  padding:10px;
-  background:#22c55e;
-  color:white;
-  text-decoration:none;
-  border-radius:8px;
-  transition:0.2s;
-}
-
-.proj-btn:hover{
-  background:#16a34a;
-  transform:scale(1.03);
-}
-
-/* ADS */
 .tool-ads{
   position:sticky;
   top:20px;
 }
 
 .ad-box{
-  background:#111827;
   height:600px;
+  background:#1e293b;
   border-radius:12px;
   display:flex;
   align-items:center;
@@ -121,10 +100,9 @@ input{
   color:#64748b;
 }
 
-/* MOBILE */
 @media(max-width:900px){
-  .tool-layout{ grid-template-columns:1fr; margin-left:auto; }
-  .tool-ads{ display:none; }
+  .tool-layout{grid-template-columns:1fr;margin:auto;}
+  .tool-ads{display:none;}
 }
 </style>
 </head>
@@ -133,112 +111,118 @@ input{
 
 <main class="tool-layout">
 
-  <div class="tool-main">
+<div class="tool-main">
+<a href="/tools/" class="back-btn">← Back to Tools</a>
+<h1>AI Human Detection ESP Control</h1>
 
-    <a href="/tools/" class="back-btn">← Back to Tools</a>
-    <h1>AI Human Detection</h1>
+<div class="video-box">
+  <video id="video" autoplay playsinline muted></video>
+  <canvas id="canvas"></canvas>
+</div>
 
-    <div class="video-box">
-      <video id="video" autoplay playsinline muted></video>
-      <canvas id="canvas"></canvas>
-    </div>
+<div class="control-panel">
+  <input type="text" id="espip" placeholder="Enter ESP IP">
+  <button id="connectBtn">Connect</button>
+  <span class="led" id="led"></span>
+</div>
+</div>
 
-    <div class="control-box">
-      ESP IP:
-      <input id="espip" placeholder="192.168.1.50">
-      <span>LED:</span>
-      <span id="led" class="led"></span>
-    </div>
-
-    <div class="project-links">
-      <h3>Build This With Hardware</h3>
-      <a href="/projects/esp01-relay/" class="proj-btn">ESP-01 Relay Version</a>
-      <a href="/projects/esp32-human-detect/" class="proj-btn">ESP32 Version</a>
-      <a href="/projects/esp8266-human-detect/" class="proj-btn">ESP8266 Version</a>
-    </div>
-
-  </div>
-
-  <aside class="tool-ads">
-    <div class="ad-box">Advertisement</div>
-  </aside>
+<aside class="tool-ads">
+  <div class="ad-box">Advertisement</div>
+</aside>
 
 </main>
 
 <script>
-const video = document.getElementById('video');
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
-const led = document.getElementById('led');
-const ipInput = document.getElementById('espip');
+const video=document.getElementById("video");
+const canvas=document.getElementById("canvas");
+const ctx=canvas.getContext("2d");
+const ipInput=document.getElementById("espip");
+const led=document.getElementById("led");
+const connectBtn=document.getElementById("connectBtn");
 
-let lastState = "off";
-let lastSend = 0;
-const delay = 2000;
+let model;
+let espIP=null;
+let lastHumanTime=0;
+let ledState="off";
 
-// Beep sound
 function beep(){
-  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  const osc = audioCtx.createOscillator();
-  osc.type="sine";
-  osc.frequency.value=700;
-  osc.connect(audioCtx.destination);
-  osc.start();
-  setTimeout(()=>osc.stop(),150);
+  const a=new(window.AudioContext||webkitAudioContext)();
+  const o=a.createOscillator();
+  o.frequency.value=750;
+  o.connect(a.destination);
+  o.start();
+  setTimeout(()=>o.stop(),120);
 }
 
-async function setupCamera(){
-  const stream = await navigator.mediaDevices.getUserMedia({video:true});
-  video.srcObject = stream;
-  return new Promise(res=> video.onloadedmetadata=res);
+async function startCamera(){
+  const stream=await navigator.mediaDevices.getUserMedia({
+    video:{facingMode:"environment"},audio:false
+  });
+  video.srcObject=stream;
+  return new Promise(resolve=>{
+    video.onloadedmetadata=()=>{
+      video.play();
+      canvas.width=video.videoWidth;
+      canvas.height=video.videoHeight;
+      resolve();
+    };
+  });
 }
 
-async function start(){
-  await setupCamera();
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
+async function detect(){
+  if(!model) model=await cocoSsd.load();
+  const preds=await model.detect(video);
 
-  const model = await cocoSsd.load();
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  let humans=0;
 
-  async function detect(){
-    const preds = await model.detect(video);
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-
-    let humans = 0;
-
-    preds.forEach(p=>{
-      if(p.class==='person'){
-        humans++;
-        ctx.strokeStyle='lime';
-        ctx.lineWidth=3;
-        ctx.strokeRect(...p.bbox);
-      }
-    });
-
-    const state = humans>0 ? "on":"off";
-    const now = Date.now();
-
-    if(state!==lastState && now-lastSend>delay){
-      const ip = ipInput.value.trim();
-      if(ip){
-        fetch(`http://${ip}/${state}`).catch(()=>{});
-      }
-      led.className = state==="on" ? "led on":"led";
-      beep();
-      lastState=state;
-      lastSend=now;
+  preds.forEach(p=>{
+    if(p.class==="person"){
+      humans++;
+      const scaleX=canvas.width/video.videoWidth;
+      const scaleY=canvas.height/video.videoHeight;
+      ctx.strokeStyle="lime";
+      ctx.lineWidth=3;
+      ctx.strokeRect(p.bbox[0]*scaleX,p.bbox[1]*scaleY,p.bbox[2]*scaleX,p.bbox[3]*scaleY);
     }
+  });
 
-    requestAnimationFrame(detect);
+  const now=Date.now();
+
+  if(humans>0){
+    lastHumanTime=now;
+    if(ledState==="off"){
+      ledState="on";
+      led.classList.add("on");
+      if(espIP) fetch(`http://${espIP}/on`).catch(()=>{});
+      beep();
+    }
+  }else{
+    if(ledState==="on" && now-lastHumanTime>3000){
+      ledState="off";
+      led.classList.remove("on");
+      if(espIP) fetch(`http://${espIP}/off`).catch(()=>{});
+      beep();
+    }
   }
 
-  detect();
+  requestAnimationFrame(detect);
 }
 
-start();
+connectBtn.onclick=()=>{
+  espIP=ipInput.value.trim();
+  if(!espIP) return alert("Enter ESP IP");
+  connectBtn.innerText="CONNECTED";
+  connectBtn.style.background="#16a34a";
+};
 
-// disable right click (basic protection)
-document.addEventListener("contextmenu", e=>e.preventDefault());
+document.addEventListener("contextmenu",e=>e.preventDefault());
+document.addEventListener("keydown",e=>{
+  if(e.key==="F12"||(e.ctrlKey&&e.shiftKey&&e.key==="I")) e.preventDefault();
+});
+
+startCamera().then(detect);
 </script>
 
 </body>
