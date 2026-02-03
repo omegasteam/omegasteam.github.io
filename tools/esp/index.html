@@ -60,8 +60,22 @@ button{padding:10px 15px;border:none;border-radius:6px;background:#38bdf8;color:
 .ad-box{height:600px;background:#1e293b;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#64748b;}
 
 @media(max-width:900px){
-  .tool-layout{grid-template-columns:1fr;margin:auto;}
-  .tool-ads{display:none;}
+  .tool-layout{
+    grid-template-columns:1fr;
+    margin:auto;
+  }
+
+  .tool-ads{
+    display:block;
+    position:static;
+    margin-top:25px;
+  }
+
+  .ad-box{
+    height:120px;   /* Mobile banner size */
+  }
+}
+
 }
 </style>
 </head>
