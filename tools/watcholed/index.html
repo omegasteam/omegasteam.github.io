@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live Speech → ESP32 OLED | OmegaSTEAM</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#0f172a;
+  color:white;
+}
+
+/* LAYOUT */
+.tool-layout{
+  display:grid;
+  grid-template-columns:3fr 1fr;
+  gap:25px;
+  max-width:1300px;
+  margin-left:30px;
+  padding:20px;
+}
+
+.tool-main{text-align:center;}
+
+.back-btn{
+  color:#38bdf8;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+h1{color:#38bdf8;}
+
+.control-panel{
+  margin-top:20px;
+}
+
+input{
+  padding:10px;
+  border-radius:6px;
+  border:none;
+  width:200px;
+}
+
+button{
+  padding:10px 15px;
+  border:none;
+  border-radius:6px;
+  background:#38bdf8;
+  color:#0f172a;
+  font-weight:bold;
+  cursor:pointer;
+  margin:5px;
+}
+
+textarea{
+  width:100%;
+  max-width:600px;
+  height:120px;
+  margin-top:15px;
+  border-radius:10px;
+  padding:10px;
+  background:#1e293b;
+  color:white;
+  border:none;
+}
+
+/* PROJECT LINKS */
+.project-links{margin-top:35px;text-align:left;}
+.project-links h3{color:#38bdf8;}
+
+.proj-card-wrap{display:grid;gap:12px;}
+
+.proj-card{
+  display:block;
+  padding:15px;
+  background:#1e293b;
+  border-radius:10px;
+  text-decoration:none;
+  color:white;
+  transition:0.25s;
+  border-left:4px solid #38bdf8;
+}
+.proj-card:hover{
+  transform:translateX(6px);
+  background:#0ea5e9;
+  color:#0f172a;
+}
+
+/* ADS */
+.tool-ads{position:sticky;top:20px;}
+.ad-box{
+  height:600px;
+  background:#1e293b;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#64748b;
+}
+
+/* MOBILE */
+@media(max-width:900px){
+  .tool-layout{grid-template-columns:1fr;margin:auto;}
+  .tool-ads{position:static;margin-top:20px;}
+  .ad-box{height:120px;}
+}
+</style>
+</head>
+
+<body>
+
+<main class="tool-layout">
+
+<div class="tool-main">
+<a href="/tools/" class="back-btn">← Back to Tools</a>
+<h1>Live Speech → ESP32 OLED</h1>
+
+<div class="control-panel">
+  <input type="text" id="espip" placeholder="Enter ESP IP">
+  <button id="connectBtn">Connect</button><br>
+  <button id="startBtn">Start Listening</button>
+  <button id="stopBtn">Stop Listening</button>
+</div>
+
+<textarea id="transcript" readonly placeholder="Speech text will appear here..."></textarea>
+
+<!-- PROJECT LINKS -->
+<div class="project-links">
+  <h3>Build This Hardware</h3>
+
+  <div class="proj-card-wrap">
+    <a href="/projects/esp32-oled-speech/" class="proj-card">
+      <h4>ESP32 OLED Version</h4>
+      <p>Display live speech text on OLED screen</p>
+    </a>
+
+    <a href="/projects/esp8266-speech/" class="proj-card">
+      <h4>ESP8266 Version</h4>
+      <p>Low-cost WiFi speech receiver</p>
+    </a>
+  </div>
+</div>
+
+</div>
+
+<aside class="tool-ads">
+  <div class="ad-box">Advertisement</div>
+</aside>
+
+</main>
+
+<script>
+let recognition;
+let espIP = null;
+const transcriptEl = document.getElementById('transcript');
+
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+if (!SpeechRecognition) alert("Use Chrome browser for speech recognition");
+
+recognition = new SpeechRecognition();
+recognition.lang = "en-US";
+recognition.interimResults = true;
+recognition.continuous = true;
+
+recognition.onresult = (event) => {
+  let interim = "";
+  let finalText = "";
+  for (let i = event.resultIndex; i < event.results.length; i++) {
+    const res = event.results[i];
+    if (res.isFinal) finalText += res[0].transcript;
+    else interim += res[0].transcript;
+  }
+
+  transcriptEl.value = finalText + (interim ? "\n(Interim) " + interim : "");
+
+  const textToSend = interim || finalText;
+  if (espIP) {
+    fetch(`http://${espIP}/speech`, {
+      method: "POST",
+      body: textToSend
+    }).catch(()=>{});
+  }
+};
+
+document.getElementById('connectBtn').onclick = () => {
+  espIP = document.getElementById('espip').value.trim();
+  if (!espIP) return alert("Enter ESP IP");
+  alert("Connected to " + espIP);
+};
+
+document.getElementById('startBtn').onclick = () => recognition.start();
+document.getElementById('stopBtn').onclick = () => recognition.stop();
+
+document.addEventListener("contextmenu", e => e.preventDefault());
+</script>
+
+</body>
+</html>
