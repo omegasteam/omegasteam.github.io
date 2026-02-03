@@ -82,6 +82,7 @@ button{padding:10px 15px;border:none;border-radius:6px;background:#38bdf8;color:
 <div class="control-panel">
   <input type="text" id="espip" placeholder="Enter ESP IP">
   <button id="connectBtn">Connect</button>
+  <button id="switchCam">Switch Camera</button>
   <span class="led" id="led"></span>
 </div>
 
@@ -118,6 +119,9 @@ button{padding:10px 15px;border:none;border-radius:6px;background:#38bdf8;color:
 </main>
 
 <script>
+  let currentFacing = "environment";
+let stream;
+
 const video=document.getElementById("video");
 const canvas=document.getElementById("canvas");
 const ctx=canvas.getContext("2d");
@@ -139,8 +143,27 @@ function beep(){
   setTimeout(()=>o.stop(),120);
 }
 
-async function startCamera(){
-  const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}});
+async function startCamera() {
+  if (stream) {
+    stream.getTracks().forEach(track => track.stop());
+  }
+
+  stream = await navigator.mediaDevices.getUserMedia({
+    video: { facingMode: { ideal: currentFacing } }
+  });
+
+  video.srcObject = stream;
+
+  return new Promise(resolve => {
+    video.onloadedmetadata = () => {
+      video.play();
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      resolve();
+    };
+  });
+}
+
   video.srcObject=stream;
   return new Promise(resolve=>{
     video.onloadedmetadata=()=>{
@@ -197,6 +220,11 @@ connectBtn.onclick=()=>{
 };
 
 document.addEventListener("contextmenu",e=>e.preventDefault());
+  document.getElementById("switchCam").onclick = async () => {
+  currentFacing = currentFacing === "environment" ? "user" : "environment";
+  await startCamera();
+};
+
 startCamera().then(detect);
 </script>
 
