@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Human Detection Control | OmegaSTEAM</title>
+<title>AI Human Detection Tool | OmegaSTEAM</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.9.0"></script>
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
@@ -20,62 +20,32 @@ body{
 .tool-layout{
   display:grid;
   grid-template-columns:3fr 1fr;
+  gap:25px;
   max-width:1300px;
   margin-left:30px;
   margin-right:auto;
-  gap:25px;
   padding:20px;
 }
 
-.tool-main{text-align:center}
+.tool-main{ text-align:center; }
 
-h1{color:#38bdf8}
-
-/* CONTROL PANEL */
-.control-panel{
-  margin:15px auto;
-  background:#1e293b;
-  padding:15px;
-  border-radius:12px;
-  display:inline-block;
+.back-btn{
+  color:#38bdf8;
+  text-decoration:none;
+  font-weight:bold;
 }
 
-input{
-  padding:8px;
-  border-radius:6px;
-  border:none;
-  width:180px;
-}
+h1{ color:#38bdf8; }
 
-button{
-  padding:8px 14px;
-  border:none;
-  border-radius:6px;
-  background:#22c55e;
-  color:white;
-  cursor:pointer;
-  margin-left:8px;
-}
-
-/* LED */
-.led{
-  width:16px;
-  height:16px;
-  border-radius:50%;
-  display:inline-block;
-  margin-left:10px;
-  background:red;
-  box-shadow:0 0 10px red;
-}
-
-/* VIDEO WRAPPER */
+/* VIDEO */
 .video-box{
   position:relative;
   display:inline-block;
-  margin-top:15px;
 }
 
-video,canvas{
+video, canvas{
+  width:640px;
+  height:480px;
   border-radius:12px;
 }
 
@@ -85,21 +55,76 @@ canvas{
   top:0;
 }
 
+/* ESP CONTROL */
+.control-box{
+  margin-top:15px;
+  background:#1e293b;
+  padding:15px;
+  border-radius:12px;
+}
+
+input{
+  padding:8px;
+  width:200px;
+  border-radius:6px;
+  border:none;
+}
+
+.led{
+  display:inline-block;
+  width:15px;
+  height:15px;
+  border-radius:50%;
+  margin-left:10px;
+  background:red;
+}
+
+.led.on{ background:#22c55e; }
+
+/* PROJECT LINKS */
+.project-links{
+  margin-top:25px;
+  background:#1e293b;
+  padding:15px;
+  border-radius:12px;
+}
+
+.proj-btn{
+  display:block;
+  margin:10px 0;
+  padding:10px;
+  background:#22c55e;
+  color:white;
+  text-decoration:none;
+  border-radius:8px;
+  transition:0.2s;
+}
+
+.proj-btn:hover{
+  background:#16a34a;
+  transform:scale(1.03);
+}
+
 /* ADS */
-.tool-ads{position:sticky;top:20px}
+.tool-ads{
+  position:sticky;
+  top:20px;
+}
+
 .ad-box{
+  background:#111827;
   height:600px;
-  background:#0f172a;
+  border-radius:12px;
   display:flex;
   align-items:center;
   justify-content:center;
   color:#64748b;
-  border-radius:12px;
 }
 
+/* MOBILE */
 @media(max-width:900px){
-  .tool-layout{grid-template-columns:1fr;margin-left:auto}
-  .tool-ads{display:none}
+  .tool-layout{ grid-template-columns:1fr; margin-left:auto; }
+  .tool-ads{ display:none; }
 }
 </style>
 </head>
@@ -108,99 +133,112 @@ canvas{
 
 <main class="tool-layout">
 
-<div class="tool-main">
-<h1>AI Human Detection Controller</h1>
+  <div class="tool-main">
 
-<div class="control-panel">
-  ESP IP:
-  <input type="text" id="ipInput" placeholder="192.168.1.100">
-  <button onclick="startSystem()">Start</button>
-  <span class="led" id="led"></span>
-</div>
+    <a href="/tools/" class="back-btn">← Back to Tools</a>
+    <h1>AI Human Detection</h1>
 
-<div class="video-box">
-  <video id="v" width="640" height="480" autoplay muted playsinline></video>
-  <canvas id="c" width="640" height="480"></canvas>
-</div>
-</div>
+    <div class="video-box">
+      <video id="video" autoplay playsinline muted></video>
+      <canvas id="canvas"></canvas>
+    </div>
 
-<aside class="tool-ads">
-  <div class="ad-box">Advertisement</div>
-</aside>
+    <div class="control-box">
+      ESP IP:
+      <input id="espip" placeholder="192.168.1.50">
+      <span>LED:</span>
+      <span id="led" class="led"></span>
+    </div>
+
+    <div class="project-links">
+      <h3>Build This With Hardware</h3>
+      <a href="/projects/esp01-relay/" class="proj-btn">ESP-01 Relay Version</a>
+      <a href="/projects/esp32-human-detect/" class="proj-btn">ESP32 Version</a>
+      <a href="/projects/esp8266-human-detect/" class="proj-btn">ESP8266 Version</a>
+    </div>
+
+  </div>
+
+  <aside class="tool-ads">
+    <div class="ad-box">Advertisement</div>
+  </aside>
 
 </main>
 
 <script>
-let lastState=null,lastSend=0;
-const v=document.getElementById("v"),
-c=document.getElementById("c"),
-ctx=c.getContext("2d"),
-led=document.getElementById("led");
+const video = document.getElementById('video');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const led = document.getElementById('led');
+const ipInput = document.getElementById('espip');
 
-const beep=new Audio("https://actions.google.com/sounds/v1/alarms/beep_short.ogg");
+let lastState = "off";
+let lastSend = 0;
+const delay = 2000;
 
-async function cam(){
-  const s=await navigator.mediaDevices.getUserMedia({video:true});
-  v.srcObject=s;
-  return new Promise(r=>v.onloadedmetadata=()=>{v.play();r();});
+// Beep sound
+function beep(){
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  const osc = audioCtx.createOscillator();
+  osc.type="sine";
+  osc.frequency.value=700;
+  osc.connect(audioCtx.destination);
+  osc.start();
+  setTimeout(()=>osc.stop(),150);
 }
 
-function send(ip,state){
-  fetch("http://"+ip+"/"+state).catch(()=>{});
+async function setupCamera(){
+  const stream = await navigator.mediaDevices.getUserMedia({video:true});
+  video.srcObject = stream;
+  return new Promise(res=> video.onloadedmetadata=res);
 }
 
-function setLed(on){
-  led.style.background=on?"#22c55e":"red";
-  led.style.boxShadow=on?"0 0 15px #22c55e":"0 0 10px red";
-  beep.currentTime=0;
-  beep.play();
-}
+async function start(){
+  await setupCamera();
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
 
-async function startSystem(){
-  const ip=document.getElementById("ipInput").value;
-  if(!ip)return alert("Enter ESP IP");
+  const model = await cocoSsd.load();
 
-  await cam();
-  const model=await cocoSsd.load();
+  async function detect(){
+    const preds = await model.detect(video);
+    ctx.clearRect(0,0,canvas.width,canvas.height);
 
-  async function loop(){
-    const p=await model.detect(v);
-    ctx.clearRect(0,0,c.width,c.height);
+    let humans = 0;
 
-    let humans=0;
-    p.forEach(o=>{
-      if(o.class==="person"){
+    preds.forEach(p=>{
+      if(p.class==='person'){
         humans++;
-        ctx.strokeStyle="lime";
-        ctx.lineWidth=2;
-        ctx.strokeRect(...o.bbox);
+        ctx.strokeStyle='lime';
+        ctx.lineWidth=3;
+        ctx.strokeRect(...p.bbox);
       }
     });
 
-    const state=humans>0?"on":"off";
-    const now=Date.now();
+    const state = humans>0 ? "on":"off";
+    const now = Date.now();
 
-    if(state!==lastState && now-lastSend>2000){
-      send(ip,state);
-      setLed(state==="on");
+    if(state!==lastState && now-lastSend>delay){
+      const ip = ipInput.value.trim();
+      if(ip){
+        fetch(`http://${ip}/${state}`).catch(()=>{});
+      }
+      led.className = state==="on" ? "led on":"led";
+      beep();
       lastState=state;
       lastSend=now;
     }
 
-    requestAnimationFrame(loop);
+    requestAnimationFrame(detect);
   }
-  loop();
+
+  detect();
 }
 
-/* Disable right click */
-document.addEventListener("contextmenu",e=>e.preventDefault());
+start();
 
-/* Block basic inspect shortcuts */
-document.addEventListener("keydown",e=>{
-  if(e.key==="F12" || (e.ctrlKey&&e.shiftKey&&e.key==="I") || (e.ctrlKey&&e.key==="u")){
-    e.preventDefault();
-  }
-});
+// disable right click (basic protection)
+document.addEventListener("contextmenu", e=>e.preventDefault());
 </script>
 
 </body>
