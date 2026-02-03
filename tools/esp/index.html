@@ -16,6 +16,7 @@ body{
   color:white;
 }
 
+/* LAYOUT */
 .tool-layout{
   display:grid;
   grid-template-columns:3fr 1fr;
@@ -30,6 +31,7 @@ body{
 
 h1{color:#38bdf8}
 
+/* CONTROL PANEL */
 .control-panel{
   margin:15px auto;
   background:#1e293b;
@@ -55,18 +57,35 @@ button{
   margin-left:8px;
 }
 
-#count{
-  margin-top:10px;
-  font-size:18px;
-  color:#38bdf8;
+/* LED */
+.led{
+  width:16px;
+  height:16px;
+  border-radius:50%;
+  display:inline-block;
+  margin-left:10px;
+  background:red;
+  box-shadow:0 0 10px red;
+}
+
+/* VIDEO WRAPPER */
+.video-box{
+  position:relative;
+  display:inline-block;
+  margin-top:15px;
 }
 
 video,canvas{
   border-radius:12px;
-  margin-top:15px;
-  max-width:100%;
 }
 
+canvas{
+  position:absolute;
+  left:0;
+  top:0;
+}
+
+/* ADS */
 .tool-ads{position:sticky;top:20px}
 .ad-box{
   height:600px;
@@ -96,12 +115,13 @@ video,canvas{
   ESP IP:
   <input type="text" id="ipInput" placeholder="192.168.1.100">
   <button onclick="startSystem()">Start</button>
+  <span class="led" id="led"></span>
 </div>
 
-<div id="count">Humans: 0</div>
-
-<video id="v" width="640" height="480" autoplay muted playsinline></video>
-<canvas id="c" width="640" height="480"></canvas>
+<div class="video-box">
+  <video id="v" width="640" height="480" autoplay muted playsinline></video>
+  <canvas id="c" width="640" height="480"></canvas>
+</div>
 </div>
 
 <aside class="tool-ads">
@@ -111,20 +131,29 @@ video,canvas{
 </main>
 
 <script>
-let z=null, s=null, l=0, t=0;
+let lastState=null,lastSend=0;
 const v=document.getElementById("v"),
 c=document.getElementById("c"),
-x=c.getContext("2d"),
-d=document.getElementById("count");
+ctx=c.getContext("2d"),
+led=document.getElementById("led");
+
+const beep=new Audio("https://actions.google.com/sounds/v1/alarms/beep_short.ogg");
 
 async function cam(){
-  const m=await navigator.mediaDevices.getUserMedia({video:true});
-  v.srcObject=m;
+  const s=await navigator.mediaDevices.getUserMedia({video:true});
+  v.srcObject=s;
   return new Promise(r=>v.onloadedmetadata=()=>{v.play();r();});
 }
 
 function send(ip,state){
   fetch("http://"+ip+"/"+state).catch(()=>{});
+}
+
+function setLed(on){
+  led.style.background=on?"#22c55e":"red";
+  led.style.boxShadow=on?"0 0 15px #22c55e":"0 0 10px red";
+  beep.currentTime=0;
+  beep.play();
 }
 
 async function startSystem(){
@@ -134,35 +163,44 @@ async function startSystem(){
   await cam();
   const model=await cocoSsd.load();
 
-  (async function loop(){
+  async function loop(){
     const p=await model.detect(v);
-    x.clearRect(0,0,c.width,c.height);
-    let h=0;
+    ctx.clearRect(0,0,c.width,c.height);
 
+    let humans=0;
     p.forEach(o=>{
       if(o.class==="person"){
-        h++;
-        x.strokeStyle="lime";
-        x.strokeRect(...o.bbox);
+        humans++;
+        ctx.strokeStyle="lime";
+        ctx.lineWidth=2;
+        ctx.strokeRect(...o.bbox);
       }
     });
 
-    d.innerText="Humans: "+h;
+    const state=humans>0?"on":"off";
+    const now=Date.now();
 
-    let state=h>0?"on":"off",
-    now=Date.now();
-
-    if(state!==z && now-t>2000){
+    if(state!==lastState && now-lastSend>2000){
       send(ip,state);
-      z=state;
-      t=now;
+      setLed(state==="on");
+      lastState=state;
+      lastSend=now;
     }
 
     requestAnimationFrame(loop);
-  })();
+  }
+  loop();
 }
 
+/* Disable right click */
 document.addEventListener("contextmenu",e=>e.preventDefault());
+
+/* Block basic inspect shortcuts */
+document.addEventListener("keydown",e=>{
+  if(e.key==="F12" || (e.ctrlKey&&e.shiftKey&&e.key==="I") || (e.ctrlKey&&e.key==="u")){
+    e.preventDefault();
+  }
+});
 </script>
 
 </body>
