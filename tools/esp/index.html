@@ -9,12 +9,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
 
 <style>
-body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:#0f172a;
-  color:white;
-}
+body{margin:0;font-family:Arial;background:#0f172a;color:white;}
 
 .tool-layout{
   display:grid;
@@ -26,79 +21,43 @@ body{
 }
 
 .tool-main{text-align:center;}
-
-.back-btn{
-  color:#38bdf8;
-  text-decoration:none;
-  font-weight:bold;
-}
-
+.back-btn{color:#38bdf8;text-decoration:none;font-weight:bold;}
 h1{color:#38bdf8;}
 
-.video-box{
-  position:relative;
-  width:100%;
-  max-width:640px;
-  margin:auto;
-}
+.video-box{position:relative;width:100%;max-width:640px;margin:auto;}
+video,canvas{width:100%;border-radius:12px;}
+canvas{position:absolute;top:0;left:0;}
 
-video,canvas{
-  width:100%;
-  border-radius:12px;
-}
+.control-panel{margin-top:15px;}
+input{padding:10px;border-radius:6px;border:none;width:200px;}
+button{padding:10px 15px;border:none;border-radius:6px;background:#38bdf8;color:#0f172a;font-weight:bold;cursor:pointer;}
 
-canvas{
-  position:absolute;
-  top:0;
-  left:0;
-}
-
-.control-panel{
-  margin-top:15px;
-}
-
-input{
-  padding:10px;
-  border-radius:6px;
-  border:none;
-  width:200px;
-}
-
-button{
-  padding:10px 15px;
-  border:none;
-  border-radius:6px;
-  background:#38bdf8;
-  color:#0f172a;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.led{
-  width:15px;
-  height:15px;
-  background:#333;
-  border-radius:50%;
-  display:inline-block;
-  margin-left:10px;
-}
-
+.led{width:15px;height:15px;background:#333;border-radius:50%;display:inline-block;margin-left:10px;}
 .led.on{background:#22c55e;box-shadow:0 0 10px #22c55e;}
 
-.tool-ads{
-  position:sticky;
-  top:20px;
+.project-links{margin-top:35px;text-align:left;}
+.project-links h3{color:#38bdf8;margin-bottom:10px;}
+
+.proj-card-wrap{display:grid;gap:12px;}
+
+.proj-card{
+  display:block;
+  padding:15px;
+  background:#1e293b;
+  border-radius:10px;
+  text-decoration:none;
+  color:white;
+  transition:0.25s;
+  border-left:4px solid #38bdf8;
+}
+.proj-card:hover{
+  transform:translateX(6px);
+  background:#0ea5e9;
+  color:#0f172a;
 }
 
-.ad-box{
-  height:600px;
-  background:#1e293b;
-  border-radius:12px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#64748b;
-}
+.tool-ads{position:sticky;top:20px;}
+.ad-box{height:600px;background:#1e293b;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#64748b;}
 
 @media(max-width:900px){
   .tool-layout{grid-template-columns:1fr;margin:auto;}
@@ -125,6 +84,31 @@ button{
   <button id="connectBtn">Connect</button>
   <span class="led" id="led"></span>
 </div>
+
+<!-- PROJECT LINKS -->
+<div class="project-links">
+  <h3>Build This With Real Hardware</h3>
+
+  <div class="proj-card-wrap">
+
+    <a href="/projects/esp01-relay/" class="proj-card">
+      <h4>ESP-01 Relay Version</h4>
+      <p>Simple WiFi relay controlled by AI human detection</p>
+    </a>
+
+    <a href="/projects/esp32-human-detect/" class="proj-card">
+      <h4>ESP32 Smart Version</h4>
+      <p>Advanced automation build with sensors</p>
+    </a>
+
+    <a href="/projects/esp8266-human-detect/" class="proj-card">
+      <h4>ESP8266 DIY Version</h4>
+      <p>Low-cost student friendly build</p>
+    </a>
+
+  </div>
+</div>
+
 </div>
 
 <aside class="tool-ads">
@@ -156,9 +140,7 @@ function beep(){
 }
 
 async function startCamera(){
-  const stream=await navigator.mediaDevices.getUserMedia({
-    video:{facingMode:"environment"},audio:false
-  });
+  const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}});
   video.srcObject=stream;
   return new Promise(resolve=>{
     video.onloadedmetadata=()=>{
@@ -173,18 +155,15 @@ async function startCamera(){
 async function detect(){
   if(!model) model=await cocoSsd.load();
   const preds=await model.detect(video);
-
   ctx.clearRect(0,0,canvas.width,canvas.height);
-  let humans=0;
 
+  let humans=0;
   preds.forEach(p=>{
     if(p.class==="person"){
       humans++;
-      const scaleX=canvas.width/video.videoWidth;
-      const scaleY=canvas.height/video.videoHeight;
       ctx.strokeStyle="lime";
       ctx.lineWidth=3;
-      ctx.strokeRect(p.bbox[0]*scaleX,p.bbox[1]*scaleY,p.bbox[2]*scaleX,p.bbox[3]*scaleY);
+      ctx.strokeRect(...p.bbox);
     }
   });
 
@@ -218,10 +197,6 @@ connectBtn.onclick=()=>{
 };
 
 document.addEventListener("contextmenu",e=>e.preventDefault());
-document.addEventListener("keydown",e=>{
-  if(e.key==="F12"||(e.ctrlKey&&e.shiftKey&&e.key==="I")) e.preventDefault();
-});
-
 startCamera().then(detect);
 </script>
 
