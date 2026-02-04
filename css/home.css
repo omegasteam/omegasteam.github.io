@@ -1,4 +1,4 @@
-/* ===== HOME LAYOUT ===== */
+/* HOME LAYOUT */
 .home-layout {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -36,7 +36,6 @@
 
 .omega-digital-card h2 {
   color: #38bdf8;
-  margin-bottom: 5px;
 }
 
 .tagline {
