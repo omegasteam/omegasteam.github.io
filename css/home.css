@@ -1,0 +1,72 @@
+/* ===== HOME LAYOUT ===== */
+.home-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 40px;
+  padding: 40px;
+}
+
+/* HERO */
+.hero h1 {
+  font-size: 2.5rem;
+  color: #38bdf8;
+}
+
+.hero p {
+  margin: 15px 0;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 20px;
+  background: #22c55e;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+/* OMEGA DIGITAL CARD */
+.omega-digital-card {
+  background: linear-gradient(145deg, #1e293b, #0f172a);
+  padding: 25px;
+  border-radius: 14px;
+  border: 1px solid #1e293b;
+  box-shadow: 0 0 20px rgba(56,189,248,0.1);
+}
+
+.omega-digital-card h2 {
+  color: #38bdf8;
+  margin-bottom: 5px;
+}
+
+.tagline {
+  font-size: 0.9rem;
+  color: #94a3b8;
+}
+
+.slogan {
+  margin: 15px 0;
+  font-weight: bold;
+}
+
+.omega-digital-card ul {
+  padding-left: 18px;
+  line-height: 1.8;
+}
+
+.service-btn {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 18px;
+  background: #22c55e;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+  .home-layout {
+    grid-template-columns: 1fr;
+  }
+}
