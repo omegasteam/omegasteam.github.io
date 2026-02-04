@@ -67,6 +67,14 @@ nav a.active {
   right: 25px;
   top: 20px;
 }
+.logo img {
+  height: 42px;   /* lock logo size */
+  width: auto;
+}
+.nav {
+  padding: 10px 30px;
+}
+
 
 @media (max-width: 768px) {
   nav {
