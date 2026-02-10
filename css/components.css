@@ -9,6 +9,26 @@ body {
   line-height: 1.6;
 }
 
+.back-btn-container {
+  margin: 20px 0;
+  text-align: left; /* aligns left */
+}
+
+.back-btn {
+  display: inline-block;
+  padding: 10px 16px;
+  background: #38bdf8;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.back-btn:hover {
+  background: #0ea5e9;
+}
+
 /* =========================
    STORE HEADER
 ========================= */
