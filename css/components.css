@@ -1,106 +1,154 @@
-/* ===== PAGE BASE ===== */
+/* =========================
+   GLOBAL PAGE STYLE
+========================= */
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
   background: #020617;
   color: #e2e8f0;
+  line-height: 1.6;
 }
 
-/* ===== HEADER ===== */
+/* =========================
+   STORE HEADER
+========================= */
 .store-header {
   text-align: center;
-  padding: 40px 20px;
-  background: #0f172a;
+  padding: 50px 20px;
+  background: linear-gradient(145deg, #0f172a, #111c35);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
 }
 
 .store-header h1 {
   color: #38bdf8;
-  font-size: 2rem;
-  margin-bottom: 8px;
+  font-size: 2.4rem;
+  margin-bottom: 10px;
 }
 
 .store-header p {
   color: #94a3b8;
+  font-size: 1.1rem;
 }
 
-/* ===== MAIN LAYOUT ===== */
-.store-container {
-  max-width: 1200px;
+/* =========================
+   CATEGORY SECTION
+========================= */
+.category {
+  max-width: 1250px;
   margin: auto;
-  padding: 40px 20px;
+  padding: 50px 20px;
 }
 
-.store-section {
-  margin-bottom: 70px;
-}
-
-.store-section h2 {
+.category h2 {
   color: #38bdf8;
-  margin-bottom: 25px;
-  border-left: 4px solid #38bdf8;
-  padding-left: 12px;
-  font-size: 1.5rem;
+  margin-bottom: 30px;
+  border-left: 5px solid #38bdf8;
+  padding-left: 14px;
+  font-size: 1.7rem;
+  letter-spacing: 0.5px;
 }
 
-/* ===== GRID (MAX 3 PER ROW) ===== */
-.card-grid {
+/* =========================
+   GRID LAYOUT
+========================= */
+.card-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 25px;
+  gap: 30px;
 }
 
-/* ===== PRODUCT CARD ===== */
-.product-card {
+/* =========================
+   PRODUCT CARD
+========================= */
+.card {
   background: #0f172a;
-  border-radius: 16px;
-  padding: 20px;
+  border-radius: 18px;
+  padding: 22px;
   text-align: center;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.45);
-  transition: transform 0.3s ease;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(56,189,248,0.08);
 }
 
-.product-card:hover {
-  transform: translateY(-6px);
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(56,189,248,0.25);
 }
 
-.product-card img {
+/* Product Image */
+.card img {
   width: 100%;
   height: 180px;
   object-fit: contain;
-  margin-bottom: 15px;
+  margin-bottom: 18px;
 }
 
-.product-card h3 {
+/* Product Title */
+.card h3 {
   color: #38bdf8;
-  margin-bottom: 10px;
-  font-size: 1.2rem;
+  margin-bottom: 12px;
+  font-size: 1.25rem;
 }
 
-.product-card p {
+/* Product Description */
+.card p {
   font-size: 0.95rem;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
   color: #cbd5f5;
+  min-height: 60px;
 }
 
-/* ===== BUY BUTTON ===== */
+/* =========================
+   BUY BUTTON
+========================= */
 .buy-btn {
   display: inline-block;
-  padding: 10px 16px;
-  background: #22c55e;
+  padding: 11px 18px;
+  background: linear-gradient(145deg, #22c55e, #16a34a);
   color: white;
   text-decoration: none;
-  border-radius: 8px;
+  border-radius: 10px;
   font-weight: bold;
-  transition: 0.2s;
+  transition: 0.25s ease;
+  box-shadow: 0 4px 12px rgba(34,197,94,0.4);
 }
 
 .buy-btn:hover {
-  background: #16a34a;
+  transform: scale(1.05);
+  box-shadow: 0 6px 18px rgba(34,197,94,0.6);
 }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 900px) {
-  .card-grid {
+/* =========================
+   FOOTER
+========================= */
+.footer {
+  text-align: center;
+  padding: 35px;
+  background: #0f172a;
+  margin-top: 60px;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+@media (max-width: 1000px) {
+  .card-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .card-container {
     grid-template-columns: 1fr;
+  }
+
+  .store-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .category h2 {
+    font-size: 1.4rem;
   }
 }
