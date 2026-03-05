@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>VR Spectator FPV | OmegaSTEAM</title>
 
 <style>
@@ -19,7 +18,7 @@ color:white;
 
 .tool-layout{
 display:grid;
-grid-template-columns:4fr 1fr;
+grid-template-columns:3fr 1fr;
 gap:25px;
 max-width:1400px;
 margin-left:30px;
@@ -30,20 +29,24 @@ padding:20px;
 text-align:left;
 }
 
+/* TITLE */
+
+h1{
+color:#38bdf8;
+margin-bottom:10px;
+}
+
 .back-btn{
 color:#38bdf8;
 text-decoration:none;
 font-weight:bold;
+display:inline-block;
+margin-bottom:10px;
 }
 
-h1{
-color:#38bdf8;
-}
-
-/* CONTROL */
+/* CONTROL PANEL */
 
 .control-panel{
-margin-top:15px;
 margin-bottom:15px;
 }
 
@@ -51,12 +54,12 @@ input{
 padding:10px;
 border-radius:6px;
 border:none;
-width:220px;
+width:200px;
 margin-right:10px;
 }
 
 button{
-padding:10px 15px;
+padding:10px 16px;
 border:none;
 border-radius:6px;
 background:#38bdf8;
@@ -65,15 +68,16 @@ font-weight:bold;
 cursor:pointer;
 }
 
-/* FPV VIEWER */
+/* FPV VIEW AREA */
 
 .video-box{
 width:100%;
-aspect-ratio:16/9;
+height:75vh;
 background:black;
 border-radius:12px;
 overflow:hidden;
 border:2px solid #1e293b;
+box-shadow:0 0 30px rgba(56,189,248,0.2);
 }
 
 .video-box iframe{
@@ -97,7 +101,6 @@ display:flex;
 align-items:center;
 justify-content:center;
 color:#64748b;
-font-size:18px;
 }
 
 /* MOBILE */
@@ -111,18 +114,21 @@ margin:auto;
 
 .tool-ads{
 position:static;
-margin-top:20px;
+margin-top:25px;
 }
 
 .ad-box{
 height:120px;
 }
 
+.video-box{
+height:55vh;
+}
+
 }
 
 </style>
 </head>
-
 
 <body>
 
@@ -132,54 +138,46 @@ height:120px;
 
 <a href="/tools/" class="back-btn">← Back to Tools</a>
 
-<h1>VR Spectator FPV</h1>
-
-<p>Watch the VR headset camera feed remotely.</p>
+<h1>VR Spectator FPV Viewer</h1>
 
 <div class="control-panel">
-
-<input type="text" id="ipInput" placeholder="Enter VR Device IP">
-
-<button onclick="connectStream()">Connect</button>
-
+<input type="text" id="ipInput" placeholder="Enter Camera IP">
+<button id="connectBtn">Connect</button>
 </div>
 
 <div class="video-box">
-
-<iframe id="streamFrame"></iframe>
-
+<iframe id="fpvFrame"></iframe>
 </div>
 
 </div>
-
 
 <aside class="tool-ads">
-
-<div class="ad-box">
-Advertisement
-</div>
-
+<div class="ad-box">Advertisement</div>
 </aside>
 
 </main>
 
-
 <script>
 
-function connectStream(){
+const ipInput=document.getElementById("ipInput");
+const connectBtn=document.getElementById("connectBtn");
+const frame=document.getElementById("fpvFrame");
 
-const ip=document.getElementById("ipInput").value.trim();
+connectBtn.onclick=function(){
+
+let ip=ipInput.value.trim();
 
 if(!ip){
-alert("Enter device IP");
+alert("Enter camera IP");
 return;
 }
 
-document.getElementById("streamFrame").src="http://"+ip+":8080";
+frame.src=`http://${ip}:8080`;
 
-}
+connectBtn.innerText="CONNECTED";
+connectBtn.style.background="#16a34a";
 
-document.addEventListener("contextmenu",e=>e.preventDefault());
+};
 
 </script>
 
