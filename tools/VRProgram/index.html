@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>VR Spectator FPV | OmegaSTEAM</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#0f172a;
+color:white;
+}
+
+/* MAIN LAYOUT */
+
+.tool-layout{
+display:grid;
+grid-template-columns:3fr 1fr;
+gap:25px;
+max-width:1300px;
+margin-left:30px;
+padding:20px;
+}
+
+.tool-main{
+text-align:left;
+}
+
+.back-btn{
+color:#38bdf8;
+text-decoration:none;
+font-weight:bold;
+}
+
+h1{
+color:#38bdf8;
+}
+
+/* VIDEO BOX */
+
+.video-box{
+width:640px;
+height:360px;
+background:black;
+border-radius:12px;
+overflow:hidden;
+margin-top:15px;
+border:2px solid #1e293b;
+}
+
+.video-box iframe{
+width:100%;
+height:100%;
+border:none;
+}
+
+/* CONTROL PANEL */
+
+.control-panel{
+margin-top:20px;
+}
+
+input{
+padding:10px;
+border-radius:6px;
+border:none;
+width:220px;
+margin-right:10px;
+}
+
+button{
+padding:10px 15px;
+border:none;
+border-radius:6px;
+background:#38bdf8;
+color:#0f172a;
+font-weight:bold;
+cursor:pointer;
+}
+
+/* ADS */
+
+.tool-ads{
+position:sticky;
+top:20px;
+}
+
+.ad-box{
+height:600px;
+background:#1e293b;
+border-radius:12px;
+display:flex;
+align-items:center;
+justify-content:center;
+color:#64748b;
+font-size:18px;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+.tool-layout{
+grid-template-columns:1fr;
+margin:auto;
+}
+
+.video-box{
+width:100%;
+height:auto;
+aspect-ratio:16/9;
+}
+
+.tool-ads{
+position:static;
+margin-top:25px;
+}
+
+.ad-box{
+height:120px;
+}
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<main class="tool-layout">
+
+<!-- LEFT SIDE TOOL -->
+
+<div class="tool-main">
+
+<a href="/tools/" class="back-btn">← Back to Tools</a>
+
+<h1>VR Spectator FPV</h1>
+
+<p>Watch the VR headset camera feed remotely.</p>
+
+<div class="control-panel">
+
+<input type="text" id="ipInput" placeholder="Enter VR Device IP">
+
+<button onclick="connectStream()">Connect</button>
+
+</div>
+
+
+<div class="video-box">
+
+<iframe id="streamFrame"></iframe>
+
+</div>
+
+</div>
+
+
+<!-- RIGHT SIDE ADS -->
+
+<aside class="tool-ads">
+
+<div class="ad-box">
+
+Advertisement
+
+</div>
+
+</aside>
+
+</main>
+
+
+
+<script>
+
+function connectStream(){
+
+const ip=document.getElementById("ipInput").value.trim();
+
+if(!ip){
+alert("Enter device IP");
+return;
+}
+
+const url="http://"+ip+":8080";
+
+document.getElementById("streamFrame").src=url;
+
+}
+
+document.addEventListener("contextmenu",e=>e.preventDefault());
+
+</script>
+
+</body>
+</html>
