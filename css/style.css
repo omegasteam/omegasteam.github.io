@@ -109,45 +109,36 @@ nav.show{
 
 
 
-/* ===== POSTER SECTION ===== */
+/* ===== SERVICE PROMO ===== */
 
-.hero-banner{
-  width:100%;
-  display:flex;
-  justify-content:center;
-  padding:40px 20px;
+.service-promo{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:50px;
+  padding:60px 10%;
+  align-items:start;
 }
 
-.hero-banner img{
+
+/* LEFT SIDE */
+
+.promo-left{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.poster{
   width:100%;
-  max-width:700px;   /* controls poster size */
-  height:auto;
+  max-width:500px;
   border-radius:12px;
   box-shadow:0 10px 30px rgba(0,0,0,0.5);
 }
 
-.banner-content{
-  position:absolute;
-  margin-top:-80px;
+.promo-left .btn{
+  margin-top:20px;
 }
 
-
-/* BUTTON */
-
-.btn{
-  display:inline-block;
-  padding:12px 26px;
-  background:#38bdf8;
-  color:#020617;
-  text-decoration:none;
-  font-weight:bold;
-  border-radius:8px;
-  transition:0.3s;
-}
-
-.btn:hover{
-  background:#0ea5e9;
-}
 
 
 
