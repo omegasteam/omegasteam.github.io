@@ -1,173 +1,97 @@
 /* ===== RESET ===== */
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Segoe UI',sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-body{
-background:#020617;
-color:#e2e8f0;
+body {
+  background: #020617;
+  color: #e2e8f0;
 }
-
-
 
 /* ===== NAVBAR ===== */
-
-.nav{
-display:flex;
-flex-direction:column;
-align-items:flex-start;
-padding:10px 30px;
-background:#0f172a;
-position:sticky;
-top:0;
-z-index:1000;
+.nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px 30px; /* tighter */
+  background: #0f172a;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-.logo{
-display:flex;
-align-items:center;
-gap:10px;
+/* LOGO */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.logo img{
-height:42px;
+.logo img {
+  height: 42px;   /* FIXED SIZE */
+  width: auto;
 }
 
-.brand{
-font-size:1.6rem;
-font-weight:bold;
-color:#38bdf8;
+.brand {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #38bdf8;
 }
 
-nav{
-margin-top:8px;
-display:flex;
-flex-wrap:wrap;
+/* NAV LINKS */
+nav {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
-nav a{
-margin-right:20px;
-color:#cbd5f5;
-text-decoration:none;
-font-weight:500;
+nav a {
+  margin-right: 20px;
+  color: #cbd5f5;
+  text-decoration: none;
+  font-weight: 500;
 }
 
-nav a:hover{
-color:#38bdf8;
+nav a:hover,
+nav a.active {
+  color: #38bdf8;
 }
 
-
-
-/* ===== BUTTON ===== */
-
-.btn{
-display:inline-block;
-padding:12px 24px;
-background:#38bdf8;
-color:#020617;
-font-weight:bold;
-border-radius:8px;
-text-decoration:none;
-margin-top:10px;
+/* MOBILE MENU */
+.menu-toggle {
+  display: none;
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  color: white;
+  position: absolute;
+  right: 25px;
+  top: 15px;
 }
 
+@media (max-width: 768px) {
+  nav {
+    display: none;
+    flex-direction: column;
+    background: #0f172a;
+    position: absolute;
+    right: 20px;
+    top: 85px;
+    padding: 15px;
+    border-radius: 10px;
+  }
 
-
-/* ===== SERVICE PROMO ===== */
-
-.service-promo{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:50px;
-padding:60px 10%;
-align-items:start;
+  nav.show { display: flex; }
+  .menu-toggle { display: block; }
 }
 
-.promo-left{
-display:flex;
-flex-direction:column;
-align-items:center;
-}
-
-.poster{
-width:100%;
-max-width:500px;
-border-radius:12px;
-}
-
-.promo-left .btn{
-margin-top:20px;
-}
-
-.promo-right{
-display:flex;
-flex-direction:column;
-}
-
-.promo-image{
-width:100%;
-max-width:800px;
-margin-bottom:20px;
-border-radius:10px;
-}
-
-.promo-text h2{
-color:#38bdf8;
-margin-bottom:10px;
-}
-
-.promo-text p{
-margin-bottom:12px;
-line-height:1.6;
-}
-
-.tagline{
-color:#94a3b8;
-font-size:0.9rem;
-}
-
-.slogan{
-font-weight:bold;
-}
-
-
-
-/* ===== MAIN HOME ===== */
-
-.home-layout{
-display:grid;
-grid-template-columns:2fr 1fr;
-gap:40px;
-padding:60px 10%;
-}
-
-.hero h1{
-font-size:2rem;
-margin-bottom:20px;
-}
-
-.hero p{
-margin-bottom:15px;
-line-height:1.6;
-}
-
-.omega-digital-card{
-background:#0f172a;
-padding:30px;
-border-radius:12px;
-}
-
-
-
-/* ===== FOOTER ===== */
-
-footer{
-text-align:center;
-padding:30px;
-background:#0f172a;
-margin-top:60px;
-}
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 30px;
+  background: #0f172a;
+  margin-top: 60px;
+}    
