@@ -110,7 +110,7 @@ flex-direction:column;
 
 .promo-image{
 width:100%;
-max-width:400px;
+max-width:100px;
 margin-bottom:20px;
 border-radius:10px;
 }
