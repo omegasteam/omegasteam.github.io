@@ -109,27 +109,26 @@ nav.show{
 
 
 
-/* ===== BANNER ===== */
+/* ===== BANNER SECTION ===== */
 
 .hero-banner{
-  position:relative;
-  width:100%;
-  height:100%;
-  overflow:hidden;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;   /* keeps correct image ratio */
+  overflow: hidden;
 }
 
 .hero-banner img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  filter:brightness(70%);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;     /* fills banner nicely */
 }
 
 .banner-content{
-  position:absolute;
-  bottom:30px;
-  left:50%;
-  transform:translateX(-50%);
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 
