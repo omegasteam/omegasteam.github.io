@@ -31,26 +31,52 @@ body {
 }
 
 .logo img {
-  height: 42px;   /* FIXED SIZE */
+  height: 50px;   /* FIXED SIZE */
   width: auto;
 }
 
-.brand {
-  font-size: 1.6rem;
+.brand{
+  font-size: 2.3rem;
   font-weight: bold;
-  color: #38bdf8;
+    margin-left: 15px;
+
+
+  background: linear-gradient(
+    120deg,
+    #f88838 40%,
+    #ffffff 50%,
+    #f88838 60%
+  );
+
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  animation: shineText 3s linear infinite;
+}
+
+@keyframes shineText{
+  0%{
+    background-position: -200% center;
+  }
+  100%{
+    background-position: 200% center;
+  }
 }
 
 /* NAV LINKS */
 nav {
-  margin-top: 8px;
+  margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
 }
 
 nav a {
   margin-right: 20px;
-  color: #cbd5f5;
+  color: #e5e7ec;
   text-decoration: none;
   font-weight: 500;
 }
