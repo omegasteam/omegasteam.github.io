@@ -28,6 +28,8 @@
 /* OMEGA DIGITAL CARD */
 .omega-digital-card {
   background: linear-gradient(145deg, #1e293b, #0f172a);
+
+
   padding: 25px;
   border-radius: 14px;
   border: 1px solid #1e293b;
@@ -55,10 +57,11 @@
 
 .service-btn {
   display: inline-block;
+  font-weight: bold;
   margin-top: 15px;
   padding: 10px 18px;
   background: #22c55e;
-  color: white;
+  color: rgb(0, 0, 0);
   border-radius: 8px;
   text-decoration: none;
 }
@@ -68,4 +71,136 @@
   .home-layout {
     grid-template-columns: 1fr;
   }
+  .image-card-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+  .section {
+    flex-direction: column;
+    align-items: center;
+  }
+  .slideshow, .ad-space {
+    max-width: 100%;
+  }
+  .ad-space {
+    margin-top: 20px;
+  }
+}
+.image-card-wrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 40px;
+  margin: 40px;
+}
+
+.image-section{
+   /*display: flex;
+    justify-content: left;
+    align-items: left;*/
+    margin: 0; /* margin now managed by wrapper */
+}
+
+.main-image{
+    width: 1000px;
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+.section{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 40px;
+    margin: 40px 40px;
+    flex-wrap: wrap;
+}
+
+.left-content{
+    max-width: 50px;
+}
+
+.slideshow{
+    width: 100%;
+    max-width: 600px;
+    margin-top: 15px;
+    flex: 1 1 auto;
+}
+
+.ad-space {
+    width: 100%;
+    max-width: 300px;
+    margin-top: 15px;
+    flex: 0 0 auto;
+    background: #f5f5f5;
+    min-height: 250px;
+}
+
+.slideshow img{
+    width: 100%;
+    border-radius: 10px;
+    border-radius: 8px;
+    border: 2px solid #ccc;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+}
+
+.btn{
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #0077ff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.inside3d-btn-wrap{
+    margin-top: 25px;
+    width: 100%;
+    text-align: center; /* center button beneath image */
+}
+
+.inside3d-btn{
+    position: relative;
+    display: inline-block;
+    padding: 14px 30px;
+    font-size: 16px;
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    background: #111;
+    border: 2px solid #00bfff;
+    overflow: hidden;
+    letter-spacing: 1px;
+    /* ensure button doesn't float beside image */
+    margin: 0 auto;
+}
+
+/* moving light */
+.inside3d-btn::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(0,255,255,0.8),
+        transparent
+    );
+    animation: sweep 2.5s infinite;
+}
+
+@keyframes sweep{
+    0%{
+        left: -100%;
+    }
+    100%{
+        left: 140%;
+    }
+}
+
+.inside3d-btn:hover{
+    background: #00bfff;
+    color: black;
 }
