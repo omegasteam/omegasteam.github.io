@@ -1,0 +1,636 @@
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background:#0f0f14;
+color:white;
+}
+
+/* main section */
+
+.kids-hero{
+    /* container holds title row and subtitle+content */
+    text-align:left;
+    padding-top:10px;
+    padding-left:20px;
+}
+
+/* row with title and image side by side */
+.title-row{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+/* title-block inside cards needs minimal gap */
+.title-block{
+    display:flex;
+    flex-direction:column;
+    gap:0px;   /* already minimal, kept for clarity */
+    margin:0;  /* remove any default margins */
+}
+
+/* IMAGE */
+
+.hero-image{
+    flex:1;
+    text-align:center;
+    padding-top:30px;
+    padding-right:30px;
+
+}
+
+.hero-image img{
+    max-width:500px;
+    width:100%;
+        border-radius: 10px;
+
+}
+
+/* colorful animated title */
+
+.kids-title{
+    /* maintain large title but reduce for less height */
+    font-size:8rem;
+    font-weight:bold;
+    margin:0;             /* strip default h1 margin */
+
+    background: linear-gradient(
+        90deg,
+        #ff4d4d,
+        #ffcc00,
+        #00ffcc,
+        #00aaff,
+        #cc66ff,
+        #ff4d4d
+    );
+
+    background-size:100%;
+    background-clip:text;
+    -webkit-background-clip:text;
+    color:transparent;
+
+    animation:colorFlow 6s linear infinite;
+}
+
+
+/* gradient animation */
+
+@keyframes colorFlow{
+0%{background-position:0%;}
+100%{background-position:400%;}
+}
+
+.kids-sub{
+    font-size:1rem;
+    margin-top:-5px;   /* pull subtitle slightly upward */
+    color:#bbbbbb;
+    line-height:1; /* ensure it's very close */
+}
+
+.kids-text{
+font-size:1.2rem;
+margin-top:5px;
+color:#dddddd;
+}
+
+/* button */
+
+.kids-btn{
+margin-top:40px;
+padding:14px 35px;
+font-size:18px;
+border-radius:30px;
+border:none;
+cursor:pointer;
+
+background: linear-gradient(45deg,#ff4d4d,#00aaff);
+color:white;
+
+transition:0.3s;
+}
+
+.kids-btn:hover{
+transform:scale(1.08);
+box-shadow:0 0 15px #00aaff;
+}
+.kids-description{
+max-width:700px;
+margin:30px auto;
+font-size:1.05rem;
+line-height:1.6;
+color:#d6d6d6;
+text-align:center;
+}
+
+/* introductory card containing the "What is Inside3D?" text */
+.intro-card{
+    max-width:800px;
+    margin:40px auto;
+    padding:20px 30px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+/* reduce internal margins when description sits in card */
+.intro-card .kids-description{
+    margin:20px auto;
+}
+
+/* block that pairs the vr image and description card */
+.info-row{
+    display:flex;
+    align-items:stretch;
+    gap:20px;
+    max-width:1200px;
+    margin:20px auto;
+}
+
+.info-row .hero-image,
+.info-row .intro-card{
+    flex:1;
+}
+
+.info-row .hero-image img{
+    border-radius:20px;
+    height:100%;
+    object-fit:cover;
+}
+
+/* header card wrapping the main title and subtitle */
+.header-card{
+    width:900px;          /* fixed width keeps card size stable */
+    max-width:90vw;
+    /* allow height to grow to fit subtitle on desktop */
+    height:auto;
+    overflow:visible;
+    margin:1px auto;     /* less outer space */
+    padding:10px 20px;    /* reduce vertical padding */
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:rgba(255,255,255,0.1);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    border-radius:20px;
+    animation:cardAppear 0.8s ease-out;
+}
+
+.header-card:hover{
+    box-shadow:0 0 25px rgba(0,163,255,0.6);
+    transform:translateY(-2px) scale(1.01);
+}
+
+@keyframes cardAppear{
+    from{opacity:0; transform:scale(0.95);}
+    to{opacity:1; transform:scale(1);}
+}
+.inside3d-section{
+display:flex;
+/* tighten columns so both start together */
+gap:30px;
+max-width:1200px;
+margin:100px auto;
+padding:20px;
+align-items:flex-start;
+color:white;
+}
+
+.section-title{
+font-size:2rem;
+margin-bottom:25px;
+/* heading text should align left for a more professional layout */
+text-align:left;
+}
+
+/* LEFT SIDE */
+
+.howworks{
+flex:1;
+}
+
+.accordion-item{
+border-bottom:1px solid #333;
+}
+
+.accordion-btn{
+width:100%;
+background:none;
+border:none;
+color:white;
+text-align:left;
+padding:14px 0;
+font-size:1.1rem;
+cursor:pointer;
+}
+
+.accordion-btn:hover{
+color:#00c3ff;
+}
+
+.accordion-content{
+max-height:0;
+overflow:hidden;
+transition:max-height 0.3s ease;
+color:#ccc;
+}
+
+.accordion-content p{
+padding-bottom:15px;
+}
+
+.plans-section{
+/* allow plans column to share space in the flex container */
+flex:1;
+max-width:900px;
+/* remove top margin so heading aligns with left column */
+margin:0;
+padding:20px;
+color:white;
+/* keep plan descriptions flush left */
+text-align:left;
+}
+
+.section-title{
+font-size:2rem;
+margin-bottom:30px;
+background:linear-gradient(90deg,#00c3ff,#7cffc4,#00c3ff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+/* GLASS CARD */
+
+.glass-card{
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(15px);
+-webkit-backdrop-filter:blur(15px);
+border:1px solid rgba(255,255,255,0.15);
+border-radius:16px;
+padding:30px;
+box-shadow:0 10px 40px rgba(0,0,0,0.6);
+}
+
+/* PLAN ROW */
+
+.plan-row{
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+padding:20px 0;
+}
+
+.plan-info h3{
+margin:0;
+font-size:1.2rem;
+color:#00c3ff;
+}
+
+.plan-info p{
+margin:4px 0;
+color:#d0d0d0;
+}
+
+.extra{
+font-size:0.9rem;
+color:#9fa6b2;
+}
+
+/* PRICE */
+
+.plan-price{
+text-align:right;
+}
+
+.price{
+display:block;
+font-size:1.5rem;
+font-weight:bold;
+color:#2ecc71;
+}
+
+.old-price{
+font-size:0.9rem;
+color:#ff4d4d;
+text-decoration:line-through;
+}
+
+/* DIVIDER */
+
+.divider{
+height:1px;
+background:rgba(221, 7, 7, 0.1);
+}
+
+/* CONTACT */
+
+.custom-plan{
+margin-top:20px;
+}
+
+.contact-btn{
+display:inline-block;
+margin-top:10px;
+padding:10px 22px;
+background:linear-gradient(90deg,#00c3ff,#7cffc4);
+border-radius:25px;
+text-decoration:none;
+color:black;
+font-weight:bold;
+transition:0.3s;
+}
+
+.contact-btn:hover{
+transform:scale(1.05);
+}
+
+/* MOBILE */
+
+@media (max-width:900px){
+    .inside3d-section{
+        flex-direction:column;
+    }
+
+    /* stack image first then card */
+    .info-row{
+        flex-direction:column;
+    }
+
+    .header-card{
+        width:90vw;
+        height:auto;           /* allow content to determine height */
+        padding:15px 20px;
+        overflow:visible;      /* subtitle no longer clipped */
+    }
+
+    .kids-title{
+        font-size:6rem;        /* shrink title for mobile */
+    }
+
+    .kids-sub{
+        font-size:1rem;
+        margin-top:0;
+        line-height:1.1;
+    }
+
+    /* original mobile rule targeted inside3d-hero */
+    .inside3d-hero{
+        flex-direction:column;
+        text-align:center;
+    }
+    .hero-image{
+        margin-top:30px;
+        text-align:center;
+    }
+}
+
+
+/* general left alignment for core sections */
+.howworks,
+.plans-section,
+.register-card,
+.gear-section,
+.terms-section {
+    text-align: left;
+}
+.gear-section{
+max-width:1100px;
+margin:80px auto;
+padding:2px;
+color:white;
+/* switch to left alignment for a more professional, consistent layout */
+text-align:left;
+}
+
+/* wrapper card around entire VR gear section */
+.gear-wrapper{
+    padding:20px;
+    margin:20px auto;
+    max-width:1100px;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(15px);
+    -webkit-backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,0.15);
+    border-radius:16px;
+}
+
+.gear-container{
+    display:flex;
+    gap:30px;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+/* GLASS CARD */
+
+.gear-card{
+    width:260px;
+    padding:25px;
+    border-radius:16px;
+
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(12px);
+
+    border:1px solid rgba(255,255,255,0.15);
+
+    box-shadow:0 10px 30px rgba(0,0,0,0.6);
+    transition:0.3s;
+}
+
+gear-card:hover{
+transform:translateY(-5px);
+}
+
+/* IMAGE */
+
+.gear-img{
+width:100%;
+margin-bottom:15px;
+}
+
+/* TEXT */
+
+.gear-card h3{
+color:#00c3ff;
+margin-bottom:10px;
+}
+
+.gear-card p{
+font-size:0.9rem;
+color:#d0d0d0;
+}
+
+/* PRICE */
+
+.gear-price{
+margin:15px 0;
+}
+
+.price{
+color:#2ecc71;
+font-size:1.4rem;
+font-weight:bold;
+}
+
+.old-price{
+color:#ff4d4d;
+font-size:0.9rem;
+text-decoration:line-through;
+margin-left:6px;
+}
+
+/* BUTTON */
+
+.buy-btn{
+padding:10px 20px;
+border:none;
+border-radius:20px;
+background:linear-gradient(90deg,#00c3ff,#7cffc4);
+font-weight:bold;
+cursor:pointer;
+}
+
+/* COMBO HIGHLIGHT */
+
+.highlight{
+border:2px solid #00c3ff;
+}
+
+.register-card{
+/* reduce spacing when placed inside the plans column */
+margin:20px 0 0 0;
+padding:35px;
+/* left align the registration card text for consistency */
+text-align:left;
+
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(12px);
+border:1px solid rgba(255,255,255,0.15);
+
+border-radius:16px;
+
+box-shadow:0 10px 30px rgba(0,0,0,0.6);
+}
+
+.register-card h3{
+font-size:1.5rem;
+margin-bottom:10px;
+color:#00c3ff;
+}
+
+.register-card p{
+color:#d0d0d0;
+margin-bottom:20px;
+}
+
+.register-btn{
+padding:12px 28px;
+border-radius:25px;
+text-decoration:none;
+font-weight:bold;
+
+background:#28a745;
+color:transparent;
+position:relative;
+/* keep a gentle glow for button */
+box-shadow:0 0 6px rgba(40,167,69,0.5);
+transition:0.3s;
+
+/* text gradient for shine effect with transparent edges */
+background-image:linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0) 100%);
+background-size:200% 100%;
+background-clip:text;
+-webkit-background-clip:text;
+}
+
+.register-btn:hover{
+transform:scale(1.05);
+background-position:200% 0;
+}
+
+@keyframes textShine {
+0%{background-position:-100% 0;}
+100%{background-position:200% 0;}
+}
+
+.register-btn:hover{
+animation:textShine 1s forwards;
+}
+
+.terms-section{
+max-width:700px;
+margin:40px auto;
+padding:20px;
+color:#ddd;
+
+/* ensure terms are easy to read with left alignment */
+text-align:left;
+}
+
+.terms-sub{
+color:#9fa6b2;
+margin-bottom:20px;
+}
+
+.terms-list{
+padding-left:2px;
+line-height:1.7;
+}
+
+.terms-list li{
+margin-bottom:18px;
+}
+
+.terms-list strong{
+color:#f9fcfd;
+}
+
+.video-container{
+position:relative;
+width:100%;
+padding-bottom:56.25%; /* 16:9 ratio */
+height:0;
+overflow:hidden;
+margin-top:30px;
+
+border-radius:16px;
+
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(10px);
+
+border:1px solid rgba(255,255,255,0.15);
+}
+
+.video-container iframe{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+border-radius:16px;
+}
+.back-btn{
+position:fixed;
+top:20px;
+left:20px;
+
+padding:8px 16px;
+
+background:rgba(255,255,255,0.08);
+border:1px solid rgba(255,255,255,0.2);
+border-radius:10px;
+
+color:#00c3ff;
+text-decoration:none;
+font-size:14px;
+
+backdrop-filter:blur(8px);
+
+transition:0.25s;
+z-index:999;
+}
+
+.back-btn:hover{
+background:#00c3ff;
+color:black;
+}
