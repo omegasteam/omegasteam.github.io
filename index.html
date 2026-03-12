@@ -8,7 +8,21 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/home.css">
 </head>
+<script>
+const images = [
+"images/slide/img1.png",
+"images/slide/img2.jpg",
+"images/slide/img3.jpg",
+"images/slide/img4.jpg"
+];
 
+function randomSlide(){
+let random = Math.floor(Math.random() * images.length);
+document.getElementById("slideImage").src = images[random];
+}
+
+setInterval(randomSlide,3000);
+</script>
 <body>
 
 <header class="nav">
@@ -29,6 +43,46 @@
   </nav>
 </header>
 
+<div class="image-card-wrapper">
+  <div class="image-section">
+    <img src="/images/ins3d.png" alt="OmegaSTEAM Image" class="main-image">
+    <div class="inside3d-btn-wrap">
+      <a href="/inside3d/" class="inside3d-btn">
+        GET STARTED WITH INSIDE3D →
+      </a>
+    </div>
+  </div>
+
+  <!-- RIGHT OMEGA DIGITAL -->
+  <aside class="omega-digital-card">
+    <h2>OmegaDIGITAL</h2>
+    <p class="tagline">The Creative & Tech Division of OMEGASTEAM</p>
+    <p class="slogan">Design. Develop. Launch.</p>
+
+    <ul>
+      <li>🎨 We design brands, visuals, and digital experiences for businesses, students, and creators.</li>
+      
+    </ul>
+
+    <p>Helping startups, students & businesses build their digital presence.</p>
+    <a href="/digital/" class="service-btn">View Services</a>
+  </aside>
+</div>
+
+<div class="section">
+    <div class="left-content">
+        <h2>Gallery</h2>
+    </div>
+
+    <div class="slideshow">
+        <img id="slideImage" src="images/img1.jpg">
+        <button class="btn">Learn More</button>
+    </div>
+    <div class="ad-space">
+        <!-- AdSense or other ad code goes here -->
+        <p>Advertisement</p>
+    </div>
+</div>
 <main class="home-layout">
 
   <!-- LEFT HERO -->
@@ -59,23 +113,7 @@
     <a class="btn" href="/projects/">Explore Projects</a>
   </section>
 
-  <!-- RIGHT OMEGA DIGITAL -->
-  <aside class="omega-digital-card">
-    <h2>OmegaDIGITAL</h2>
-    <p class="tagline">The Creative & Tech Division of OMEGASTEAM</p>
-    <p class="slogan">Design. Develop. Launch.</p>
-
-    <ul>
-      <li>🎨 We design brands, visuals, and digital experiences for businesses, students, and creators.</li>
-      
-    </ul>
-
-    <p>Helping startups, students & businesses build their digital presence.</p>
-<a href="/digital/" class="btn">View Services</a>
-
-
-  </aside>
-
+  
 </main>
 
 <footer>© 2026 OmegaSTEAM</footer>
